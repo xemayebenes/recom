@@ -1,0 +1,154 @@
+{
+    "name": "recom",
+    "version": "0.1.0",
+    "private": true,
+    "devDependencies": {
+        "@commercetools/jest-enzyme-matchers": "^1.1.2",
+        "autoprefixer": "7.1.6",
+        "babel-cli": "^6.26.0",
+        "babel-core": "6.26.0",
+        "babel-eslint": "7.2.3",
+        "babel-jest": "20.0.3",
+        "babel-loader": "7.1.2",
+        "babel-plugin-react-intl": "^2.4.0",
+        "babel-plugin-react-require": "^3.0.0",
+        "babel-preset-react-app": "^3.1.1",
+        "babel-runtime": "6.26.0",
+        "case-sensitive-paths-webpack-plugin": "2.1.1",
+        "chalk": "1.1.3",
+        "css-loader": "0.28.7",
+        "enzyme": "^3.3.0",
+        "enzyme-adapter-react-16": "^1.1.1",
+        "eslint": "4.10.0",
+        "eslint-config-prettier": "^2.9.0",
+        "eslint-config-react-app": "^2.1.0",
+        "eslint-loader": "1.9.0",
+        "eslint-plugin-flowtype": "2.39.1",
+        "eslint-plugin-import": "2.8.0",
+        "eslint-plugin-jest": "^21.7.0",
+        "eslint-plugin-jsx-a11y": "5.1.1",
+        "eslint-plugin-prettier": "^2.5.0",
+        "eslint-plugin-react": "7.4.0",
+        "extract-text-webpack-plugin": "3.0.2",
+        "file-loader": "1.1.5",
+        "fs-extra": "3.0.1",
+        "html-webpack-plugin": "2.29.0",
+        "husky": "^0.14.3",
+        "intl": "^1.2.5",
+        "jest": "20.0.4",
+        "jest-enzyme": "^4.0.2",
+        "jest-fetch-mock": "^1.4.1",
+        "jest-localstorage-mock": "^2.2.0",
+        "jest-transform-graphql": "^2.1.0",
+        "lint-staged": "^7.1.3",
+        "node-sass-chokidar": "^0.0.3",
+        "npm-run-all": "^4.1.2",
+        "postcss-flexbugs-fixes": "3.2.0",
+        "postcss-loader": "2.0.8",
+        "prettier": "^1.13.4",
+        "prettier-eslint-cli": "^4.7.0",
+        "raf": "3.4.0",
+        "react-dev-utils": "^5.0.1",
+        "react-intl-translations-manager": "^5.0.1",
+        "react-scripts": "1.1.0",
+        "react-test-renderer": "^16.2.0",
+        "source-map-explorer": "^1.5.0",
+        "style-loader": "0.19.0",
+        "sw-precache-webpack-plugin": "0.11.4",
+        "url-loader": "0.6.2",
+        "webpack": "3.8.1",
+        "webpack-dev-server": "2.9.4",
+        "webpack-manifest-plugin": "1.3.2",
+        "whatwg-fetch": "2.0.3"
+    },
+    "dependencies": {
+        "classnames": "^2.2.5",
+        "html-react-parser": "^0.4.2",
+        "intl": "^1.2.5",
+        "query-string": "^5.1.0",
+        "dotenv": "4.0.0",
+        "dotenv-expand": "4.2.0",
+        "object-assign": "4.1.1",
+        "promise": "8.0.1",
+        "react": "^16.4.0",
+        "react-dom": "^16.4.0",
+        "resolve": "1.6.0",
+        "react-intl": "^2.4.0",
+        "recompose": "^0.26.0"
+
+    },
+    "lint-staged": {
+        "src/**/*.{js,jsx,json,css}": [
+            "prettier --single-quote --write",
+            "git add"
+        ]
+    },
+    "scripts": {
+        "analyze": "source-map-explorer build/static/js/main.*",
+        "precommit": "lint-staged",
+        "build-css": "node-sass-chokidar src/ -o src/",
+        "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
+        "start-js": "react-scripts start",
+        "start": "npm-run-all -p watch-css start-js",
+        "build-js": "react-scripts build",
+        "build": "npm-run-all build-css build-js",
+        "build:staging": "REACT_APP_ENV=staging npm run build",
+        "build:development": "REACT_APP_ENV=development npm run build",
+        "build:production": "REACT_APP_ENV=production npm run build",
+        "test": "node scripts/test.js",
+        "test:coverage": "npm run test -- --coverage",
+        "test:debug": "react-scripts --inspect-brk test --runInBand --env=jsdom",
+        "translate": "BABEL_ENV=production babel ./src >/dev/null && node ./scripts/translations.js"
+    },
+    "jest": {
+        "collectCoverageFrom": [
+            "src/**/*.{js,jsx,mjs}"
+        ],
+        "setupFiles": [
+            "<rootDir>/config/polyfills.js"
+        ],
+        "testMatch": [
+            "<rootDir>/src/**/__tests__/**/*.{js,jsx,mjs}",
+            "<rootDir>/src/**/?(*.)(spec|test).{js,jsx,mjs}"
+        ],
+        "testEnvironment": "node",
+        "testURL": "http://localhost",
+        "transform": {
+            "^.+\\.(js|jsx|mjs)$": "<rootDir>/node_modules/babel-jest",
+            "^.+\\.css$": "<rootDir>/config/jest/cssTransform.js",
+            "^.+\\.(gql|graphql)$": "<rootDir>/node_modules/jest-transform-graphql",
+            "^(?!.*\\.(js|jsx|mjs|css|json)$)": "<rootDir>/config/jest/fileTransform.js"
+        },
+        "transformIgnorePatterns": [
+            "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs)$"
+        ],
+        "moduleNameMapper": {
+            "^react-native$": "react-native-web",
+            "tests(.*)$": "<rootDir>/src/tests/$1",
+            "modules(.*)$": "<rootDir>/src/modules/$1",
+            "gql(.*)$": "<rootDir>/src/gql/$1",
+            "utils(.*)$": "<rootDir>/src/utils/$1",
+            "assets(.*)$": "<rootDir>/src/assets/$1"
+        },
+        "moduleFileExtensions": [
+            "web.js",
+            "js",
+            "json",
+            "web.jsx",
+            "jsx",
+            "node",
+            "mjs"
+        ],
+        "snapshotSerializers": [
+            "enzyme-to-json/serializer"
+        ]
+    },
+    "babel": {
+        "presets": [
+            "react-app"
+        ]
+    },
+    "eslintConfig": {
+        "extends": "react-app"
+    }
+}
