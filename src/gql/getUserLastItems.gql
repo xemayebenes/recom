@@ -1,0 +1,15 @@
+query getUserLastItems($userId: String!) {
+  getUserLastItems(userId: $userId) {
+    id
+    date
+    type
+    item {
+      title
+      overview
+      images {
+        main
+        secondary
+      }
+    }
+  }
+}

@@ -62,20 +62,34 @@
         "whatwg-fetch": "2.0.3"
     },
     "dependencies": {
+        "@fortawesome/fontawesome": "^1.1.8",
+        "@fortawesome/fontawesome-free-regular": "^5.0.13",
+        "@fortawesome/fontawesome-free-solid": "^5.0.13",
+        "@fortawesome/react-fontawesome": "^0.0.20",
+        "@trendmicro/react-sidenav": "^0.4.5",
+        "apollo-boost": "^0.1.7",
+        "apollo-link-context": "^1.0.8",
+        "bootstrap": "^4.1.1",
         "classnames": "^2.2.5",
-        "html-react-parser": "^0.4.2",
-        "intl": "^1.2.5",
-        "query-string": "^5.1.0",
         "dotenv": "4.0.0",
         "dotenv-expand": "4.2.0",
+        "graphql": "^0.13.2",
+        "graphql-tag": "^2.9.2",
+        "html-react-parser": "^0.4.2",
+        "intl": "^1.2.5",
+        "jwt-decode": "^2.2.0",
         "object-assign": "4.1.1",
         "promise": "8.0.1",
+        "query-string": "^5.1.0",
         "react": "^16.4.0",
+        "react-apollo": "^2.1.4",
+        "react-css-modules": "^4.7.3",
         "react-dom": "^16.4.0",
-        "resolve": "1.6.0",
         "react-intl": "^2.4.0",
-        "recompose": "^0.26.0"
-
+        "react-router-dom": "^4.3.1",
+        "reactstrap": "^6.1.0",
+        "recompose": "^0.26.0",
+        "resolve": "1.6.0"
     },
     "lint-staged": {
         "src/**/*.{js,jsx,json,css}": [
@@ -86,12 +100,12 @@
     "scripts": {
         "analyze": "source-map-explorer build/static/js/main.*",
         "precommit": "lint-staged",
-        "build-css": "node-sass-chokidar src/ -o src/",
-        "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
-        "start-js": "react-scripts start",
+        "build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
+        "watch-css": "npm run build-css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive",
+        "start-js": "node scripts/start.js",
         "start": "npm-run-all -p watch-css start-js",
-        "build-js": "react-scripts build",
-        "build": "npm-run-all build-css build-js",
+        "build-js": "node scripts/build.js",
+        "build": "sh -ac '. config/environments/.env.${REACT_APP_ENV:-production}; npm-run-all build-css build-js'",
         "build:staging": "REACT_APP_ENV=staging npm run build",
         "build:development": "REACT_APP_ENV=development npm run build",
         "build:production": "REACT_APP_ENV=production npm run build",
@@ -150,5 +164,6 @@
     },
     "eslintConfig": {
         "extends": "react-app"
-    }
+    },
+    "proxy": "http://localhost:3001/"
 }

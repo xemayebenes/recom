@@ -92,7 +92,6 @@ module.exports = {
             '@': resolve('src'),
             assets: resolve('src/assets'),
             modules: resolve('src/modules'),
-            resolvers: resolve('src/resolvers'),
             gql: resolve('src/gql'),
             utils: resolve('src/utils'),
             styles: resolve('src/styles'),
