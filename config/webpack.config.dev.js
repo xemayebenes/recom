@@ -163,12 +163,15 @@ module.exports = {
                     // in development "style" loader enables hot editing of CSS.
                     {
                         test: /\.css$/,
+                        include: resolve('src/modules'),
                         use: [
                             require.resolve('style-loader'),
                             {
                                 loader: require.resolve('css-loader'),
                                 options: {
                                     importLoaders: 1,
+                                    modules: true,
+                                    localIdentName: '[name]__[local]___[hash:base64:5]',
                                 },
                             },
                             {
@@ -189,6 +192,20 @@ module.exports = {
                                             flexbox: 'no-2009',
                                         }),
                                     ],
+                                },
+                            },
+                        ],
+                    },
+                    {
+                        test: /\.css$/,
+                        include: resolve('src/styles'),
+                        use: [
+                            require.resolve('style-loader'),
+                            {
+                                loader: require.resolve('css-loader'),
+                                options: {
+                                    importLoaders: 1,
+                                    modules: false,
                                 },
                             },
                         ],

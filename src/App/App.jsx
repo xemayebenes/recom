@@ -4,9 +4,10 @@ import { addLocaleData, IntlProvider } from 'react-intl';
 import { ApolloProvider } from 'react-apollo';
 
 import { Messages as messages, Locales as locales } from '../i18n';
-import { Authenticated } from 'modules/global/components';
+import { Authenticated, AuthContext } from 'modules/global/components';
 import { client } from '../ApolloClient';
 import { routes } from 'modules';
+import { getUserId } from 'utils/security';
 
 addLocaleData(locales);
 const formatsDate = {
@@ -50,21 +51,23 @@ export default class App extends Component {
           messages={messages[locale]}
           formats={{ date: formatsDate }}
         >
-          <BrowserRouter>
-            <Switch>
-              {/* Module Routes */}
-              {routes.map((route, i) => (
-                <RouteWithSubRoutes key={i} {...route} />
-              ))}
-              {/* 404 */}
-              {
-                // <RouteWithSubRoutes
-                //   authenticatedRequired={true}
-                //   component={NotFound}
-                // />
-              }
-            </Switch>
-          </BrowserRouter>
+          <AuthContext.Provider value={{ userId: getUserId() }}>
+            <BrowserRouter>
+              <Switch>
+                {/* Module Routes */}
+                {routes.map((route, i) => (
+                  <RouteWithSubRoutes key={i} {...route} />
+                ))}
+                {/* 404 */}
+                {
+                  // <RouteWithSubRoutes
+                  //   authenticatedRequired={true}
+                  //   component={NotFound}
+                  // />
+                }
+              </Switch>
+            </BrowserRouter>
+          </AuthContext.Provider>
         </IntlProvider>
       </ApolloProvider>
     );

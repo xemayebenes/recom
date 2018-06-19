@@ -1,0 +1,9 @@
+.header {
+  height: 50px;
+  border-bottom: solid 1px black;
+  margin-bottom: 2px;
+}
+
+.title {
+  float: right;
+}

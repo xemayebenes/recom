@@ -10,8 +10,6 @@ import SideNav, {
 
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import faHome from '@fortawesome/fontawesome-free-solid/faHome';
-import '@trendmicro/react-sidenav/dist/react-sidenav.css';
-
 export default class SideBar extends PureComponent {
   static displayName = 'SideBar';
 
@@ -62,8 +60,7 @@ export default class SideBar extends PureComponent {
         </SideNav>
         <div
           style={{
-            marginLeft: this.state.expanded ? 240 : 64,
-            padding: '15px 20px 0 20px'
+            marginLeft: this.state.expanded ? 240 : 64
           }}
         >
           {this.props.children}
