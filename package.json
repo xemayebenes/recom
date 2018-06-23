@@ -78,6 +78,7 @@
         "html-react-parser": "^0.4.2",
         "intl": "^1.2.5",
         "jwt-decode": "^2.2.0",
+        "lodash.debounce": "^4.0.8",
         "object-assign": "4.1.1",
         "promise": "8.0.1",
         "query-string": "^5.1.0",

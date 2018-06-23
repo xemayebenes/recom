@@ -1,0 +1,27 @@
+mutation addSerie($externalId: Int!) {
+  addSerie(externalId: $externalId) {
+    id
+    externalId
+    serie {
+      title
+      overview
+      genres {
+        id
+        name
+      }
+      popularity
+      vote_count
+      vote_average
+      videoData {
+        trailer
+      }
+      omdbData {
+        Poster
+      }
+      images {
+        main
+        secondary
+      }
+    }
+  }
+}

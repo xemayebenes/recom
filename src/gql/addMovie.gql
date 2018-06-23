@@ -1,0 +1,30 @@
+mutation addMovie($externalId: Int!) {
+  addMovie(externalId: $externalId) {
+    id
+    externalId
+    film {
+      title
+      overview
+      genres {
+        id
+        name
+      }
+      popularity
+      vote_count
+      vote_average
+      video
+      videoData {
+        key
+        trailer
+      }
+      omdbData {
+        Poster
+        imdbRating
+      }
+      images {
+        main
+        secondary
+      }
+    }
+  }
+}
