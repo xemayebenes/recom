@@ -1,0 +1,29 @@
+query getUserMovie($id: String!, $userId: String!) {
+  getUserMovie(id: $id, userId: $userId) {
+    id
+    externalId
+    film {
+      title
+      overview
+      genres {
+        id
+        name
+      }
+      popularity
+      vote_count
+      vote_average
+      video
+      videoData {
+        trailer
+      }
+      omdbData {
+        Poster
+        imdbRating
+      }
+      images {
+        main
+        secondary
+      }
+    }
+  }
+}

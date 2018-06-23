@@ -6,7 +6,7 @@ import { compose, setDisplayName, withProps } from 'recompose';
 import { Container } from 'reactstrap';
 import { loggedIn } from 'utils/security';
 
-import { SideBar, Header } from 'modules/global/components';
+import { SideBar, Header, AuthContext } from 'modules/global/components';
 
 const generateQueryRedirect = pathname => {
   return querystring.stringify({

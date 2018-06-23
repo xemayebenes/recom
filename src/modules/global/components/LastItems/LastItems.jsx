@@ -2,7 +2,6 @@ import React, { PureComponent, Fragment } from 'react';
 import { injectIntl } from 'react-intl';
 
 import { Query } from 'react-apollo';
-import { Container } from 'reactstrap';
 
 import { LastItem } from 'modules/global/components';
 import getUserLastItems from 'gql/getUserLastItems.gql';
@@ -22,7 +21,7 @@ export class LastItems extends PureComponent {
             if (error) return <p>Error :(</p>;
 
             return data.getUserLastItems.map(item => (
-              <LastItem key={item.id} {...item} />
+              <LastItem key={item.item.id} {...item} />
             ));
           }}
         </Query>

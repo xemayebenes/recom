@@ -1,9 +1,9 @@
 query getUserLastItems($userId: String!) {
   getUserLastItems(userId: $userId) {
-    id
     date
     type
     item {
+      id
       title
       overview
       images {

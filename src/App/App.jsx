@@ -26,7 +26,19 @@ const RouteWithSubRoutes = route => {
       <Authenticated {...route.props}>
         <Route
           path={route.path}
-          render={props => <route.component {...props} routes={route.routes} />}
+          render={props => (
+            <AuthContext.Consumer>
+              {authUser => (
+                <React.Fragment>
+                  <route.component
+                    {...props}
+                    routes={route.routes}
+                    user={authUser}
+                  />
+                </React.Fragment>
+              )}
+            </AuthContext.Consumer>
+          )}
         />
       </Authenticated>
     );

@@ -1,0 +1,27 @@
+query getUserSerie($id: String!, $userId: String!) {
+  getUserSerie(id: $id, userId: $userId) {
+    id
+    externalId
+    serie {
+      title
+      overview
+      genres {
+        id
+        name
+      }
+      popularity
+      vote_count
+      vote_average
+      videoData {
+        trailer
+      }
+      omdbData {
+        Poster
+      }
+      images {
+        main
+        secondary
+      }
+    }
+  }
+}

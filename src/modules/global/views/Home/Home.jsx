@@ -1,19 +1,15 @@
 import React, { PureComponent, Fragment } from 'react';
 import { injectIntl } from 'react-intl';
 
-import { LastItems, AuthContext } from 'modules/global/components';
+import { LastItems } from 'modules/global/components';
 export class Home extends PureComponent {
   static displayName = 'Home';
 
   render() {
     return (
-      <AuthContext.Consumer>
-        {authUser => (
-          <Fragment>
-            <LastItems userId={authUser.userId} />
-          </Fragment>
-        )}
-      </AuthContext.Consumer>
+      <Fragment>
+        <LastItems userId={this.props.user.userId} />
+      </Fragment>
     );
   }
 }

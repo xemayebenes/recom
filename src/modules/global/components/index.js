@@ -5,3 +5,5 @@ export { default as Header } from './Header';
 export { default as LastItems } from './LastItems';
 export { default as LastItem } from './LastItem';
 export { default as AuthContext } from './AuthContext';
+export { default as MovieDetail } from './MovieDetail';
+export { default as SerieDetail } from './SerieDetail';
