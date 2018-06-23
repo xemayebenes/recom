@@ -1,4 +1,4 @@
-import { Login, Home, ItemDetail } from './views';
+import { Login, Home } from './views';
 
 export const routes = [
   {
@@ -11,10 +11,5 @@ export const routes = [
     path: '/login',
     component: Login,
     authenticatedRequired: false
-  },
-  {
-    path: '/item-detail/:type/:itemId',
-    component: ItemDetail,
-    authenticatedRequired: true
   }
 ];

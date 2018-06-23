@@ -14,6 +14,7 @@ query getUserMovie($id: String!, $userId: String!) {
       vote_average
       video
       videoData {
+        key
         trailer
       }
       omdbData {

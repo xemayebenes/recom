@@ -23,6 +23,10 @@ export class MovieDetail extends PureComponent {
           if (error) return <p>Error :(</p>;
 
           const film = data.getUserMovie.film;
+          const trailers = film.videoData.filter(
+            video => video.trailer !== null
+          );
+
           return (
             <React.Fragment>
               <div>{film.title}</div>
@@ -45,6 +49,17 @@ export class MovieDetail extends PureComponent {
                 <Col> Vote average: {film.vote_average}</Col>
                 <Col> Imdb: {film.omdbData.imdbRating}</Col>
               </Row>
+              <div>----------------------</div>
+              {trailers.length > 0 && (
+                <iframe
+                  title="youtube"
+                  type="text/html"
+                  width="100%"
+                  height="100%"
+                  src={`https://www.youtube.com/embed/${trailers[0].key}`}
+                  frameBorder="0"
+                />
+              )}
             </React.Fragment>
           );
         }}

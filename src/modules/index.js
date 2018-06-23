@@ -1,2 +1,3 @@
 import { routes as views } from './global';
-export const routes = [...views];
+import { routes as itemsViews } from './items';
+export const routes = [...views, ...itemsViews];

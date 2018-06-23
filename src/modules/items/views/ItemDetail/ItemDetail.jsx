@@ -5,7 +5,7 @@ import { Query, compose } from 'react-apollo';
 import { Container } from 'reactstrap';
 import { withRouter } from 'react-router';
 
-import { MovieDetail, SerieDetail } from 'modules/global/components';
+import { MovieDetail, SerieDetail } from 'modules/items/components';
 
 export class ItemDetail extends PureComponent {
   static displayName = 'ItemDetail';

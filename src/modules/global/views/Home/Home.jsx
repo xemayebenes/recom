@@ -1,7 +1,7 @@
 import React, { PureComponent, Fragment } from 'react';
 import { injectIntl } from 'react-intl';
 
-import { LastItems } from 'modules/global/components';
+import { LastItems } from 'modules/items/components';
 export class Home extends PureComponent {
   static displayName = 'Home';
 
