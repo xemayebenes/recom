@@ -2,6 +2,7 @@ query getUserMovie($id: String!, $userId: String!) {
   getUserMovie(id: $id, userId: $userId) {
     id
     externalId
+    completed
     film {
       title
       overview

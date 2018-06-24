@@ -4,3 +4,4 @@ export { default as MovieDetail } from './MovieDetail';
 export { default as MovieData } from './MovieData';
 export { default as SerieDetail } from './SerieDetail';
 export { default as SerieData } from './SerieData';
+export { default as ActionsPanel } from './ActionsPanel';

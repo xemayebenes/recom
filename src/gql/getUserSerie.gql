@@ -2,6 +2,7 @@ query getUserSerie($id: String!, $userId: String!) {
   getUserSerie(id: $id, userId: $userId) {
     id
     externalId
+    completed
     serie {
       title
       overview

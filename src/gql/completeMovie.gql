@@ -1,9 +1,9 @@
-mutation addSerie($externalId: Int!) {
-  addSerie(externalId: $externalId) {
+mutation completeMovie($id: String!) {
+  completeMovie(id: $id) {
     id
     externalId
     completed
-    serie {
+    film {
       title
       overview
       genres {
@@ -13,11 +13,14 @@ mutation addSerie($externalId: Int!) {
       popularity
       vote_count
       vote_average
+      video
       videoData {
+        key
         trailer
       }
       omdbData {
         Poster
+        imdbRating
       }
       images {
         main

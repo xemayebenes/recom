@@ -1,5 +1,5 @@
-mutation addSerie($externalId: Int!) {
-  addSerie(externalId: $externalId) {
+mutation completeSerie($id: String!) {
+  completeSerie(id: $id) {
     id
     externalId
     completed

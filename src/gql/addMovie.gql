@@ -2,6 +2,7 @@ mutation addMovie($externalId: Int!) {
   addMovie(externalId: $externalId) {
     id
     externalId
+    completed
     film {
       title
       overview
