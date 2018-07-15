@@ -5,7 +5,7 @@ import { MOVIE, SERIE } from 'modules/constants';
 
 const SearchItem = ({ item, type, onSelectItem }) => (
   <React.Fragment>
-    <Row className="border-bottom" onClick={() => onSelectItem(item)}>
+    <Row className="border-bottom" onClick={() => onSelectItem(item, type)}>
       <Col xs="2">
         <img src={item.images.main} width="50" alt={item.title} />
       </Col>

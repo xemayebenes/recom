@@ -8,3 +8,6 @@
   max-height: 500px;
   overflow-y: scroll;
 }
+.searchContainer {
+  z-index: 10;
+}

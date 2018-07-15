@@ -3,26 +3,26 @@ import PropTypes from 'prop-types';
 import { injectIntl } from 'react-intl';
 import debounce from 'lodash.debounce';
 import {
-  ButtonGroup,
   Button,
   Container,
   Input,
   Modal,
   ModalBody,
-  ModalFooter
+  ModalFooter,
+  TabContent,
+  TabPane,
+  Nav,
+  NavItem,
+  NavLink
 } from 'reactstrap';
+
 import classnames from 'classnames';
 import { compose, withApollo } from 'react-apollo';
 import { withRouter } from 'react-router';
 
-import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import faFilm from '@fortawesome/fontawesome-free-solid/faFilm';
-import faTv from '@fortawesome/fontawesome-free-solid/faTv';
-
 import { MOVIE, SERIE } from 'modules/constants';
 
-import searchFilms from 'gql/searchFilms.gql';
-import searchSeries from 'gql/searchSeries.gql';
+import search from 'gql/search.gql';
 import addMovie from 'gql/addMovie.gql';
 import addSerie from 'gql/addSerie.gql';
 import getUserLastItems from 'gql/getUserLastItems.gql';
@@ -41,28 +41,26 @@ export class SearchBar extends PureComponent {
     this.state = {
       searchText: '',
       searchItems: [],
-      itemType: MOVIE,
+      activeTab: MOVIE,
       showModal: false
     };
   }
 
+  toggle = tab => {
+    if (this.state.activeTab !== tab) {
+      this.setState({
+        activeTab: tab
+      });
+    }
+  };
+
   search = async text => {
-    if (this.state.itemType === MOVIE) {
-      const result = await this.props.client.query({
-        query: searchFilms,
-        variables: { searchText: text }
-      });
+    const result = await this.props.client.query({
+      query: search,
+      variables: { searchText: text }
+    });
 
-      this.setState({ searchItems: result.data.searchFilms });
-    }
-    if (this.state.itemType === SERIE) {
-      const result = await this.props.client.query({
-        query: searchSeries,
-        variables: { searchText: text }
-      });
-
-      this.setState({ searchItems: result.data.searchSeries });
-    }
+    this.setState({ searchItems: result.data });
   };
 
   searchDebounced = debounce(this.search, 300);
@@ -76,8 +74,8 @@ export class SearchBar extends PureComponent {
     this.setState({ itemType: value, searchItems: [], searchText: '' });
   };
 
-  handleSelectItem = data => {
-    this.setState({ showModal: true, item: data });
+  handleSelectItem = (data, itemType) => {
+    this.setState({ showModal: true, item: data, itemType });
   };
 
   handleCloseModal = _ => {
@@ -127,29 +125,23 @@ export class SearchBar extends PureComponent {
   };
 
   render() {
-    const { searchText, searchItems, itemType, showModal, item } = this.state;
+    const {
+      searchText,
+      searchItems: { searchFilms, searchSeries },
+      itemType,
+      showModal,
+      item
+    } = this.state;
     return (
       <Fragment>
-        <Container className={classnames('w-50', 'position-absolute')}>
+        <Container
+          className={classnames(
+            'w-50',
+            'position-absolute',
+            styles.searchContainer
+          )}
+        >
           <div className="d-flex">
-            <ButtonGroup>
-              <Button
-                size="sm"
-                color="primary"
-                onClick={() => this.handleItemSelector(MOVIE)}
-                active={itemType === MOVIE}
-              >
-                <FontAwesomeIcon icon={faFilm} />
-              </Button>
-              <Button
-                size="sm"
-                color="primary"
-                onClick={() => this.handleItemSelector(SERIE)}
-                active={itemType === SERIE}
-              >
-                <FontAwesomeIcon icon={faTv} />
-              </Button>
-            </ButtonGroup>
             <Input
               type="text"
               name="searchText"
@@ -161,19 +153,59 @@ export class SearchBar extends PureComponent {
           </div>
           {searchText && (
             <Container className={classnames(styles.container)}>
-              {searchItems.length > 0 && (
+              {((searchFilms && searchFilms.length > 0) ||
+                (searchSeries && searchSeries.length > 0)) && (
                 <Fragment>
-                  {searchItems.map(item => (
-                    <SearchItem
-                      key={item.externalId}
-                      item={item}
-                      type={itemType}
-                      onSelectItem={this.handleSelectItem}
-                    />
-                  ))}
+                  <Nav tabs>
+                    <NavItem>
+                      <NavLink
+                        className={classnames({
+                          active: this.state.activeTab === MOVIE
+                        })}
+                        onClick={() => {
+                          this.toggle(MOVIE);
+                        }}
+                      >
+                        Movies ({searchFilms.length})
+                      </NavLink>
+                    </NavItem>
+                    <NavItem>
+                      <NavLink
+                        className={classnames({
+                          active: this.state.activeTab === SERIE
+                        })}
+                        onClick={() => {
+                          this.toggle(SERIE);
+                        }}
+                      >
+                        Series ({searchSeries.length})
+                      </NavLink>
+                    </NavItem>
+                  </Nav>
+                  <TabContent activeTab={this.state.activeTab}>
+                    <TabPane tabId={MOVIE}>
+                      {searchFilms.map(item => (
+                        <SearchItem
+                          key={item.externalId}
+                          item={item}
+                          type={MOVIE}
+                          onSelectItem={this.handleSelectItem}
+                        />
+                      ))}
+                    </TabPane>
+                    <TabPane tabId={SERIE}>
+                      {searchSeries.map(item => (
+                        <SearchItem
+                          key={item.externalId}
+                          item={item}
+                          type={SERIE}
+                          onSelectItem={this.handleSelectItem}
+                        />
+                      ))}
+                    </TabPane>
+                  </TabContent>
                 </Fragment>
               )}
-              {searchItems.length === 0 && <div>Sin resultados</div>}
             </Container>
           )}
         </Container>
