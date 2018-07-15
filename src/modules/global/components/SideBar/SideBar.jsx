@@ -37,6 +37,7 @@ export class SideBar extends PureComponent {
     return (
       <Fragment>
         <SideNav
+          className="position-fixed"
           onSelect={selected => {
             console.log(selected);
           }}
