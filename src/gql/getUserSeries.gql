@@ -1,0 +1,13 @@
+query getUserSeries($userId: String!) {
+  getUserSeries(userId: $userId) {
+    completed
+    id
+    serie {
+      externalId
+      title
+      images {
+        main
+      }
+    }
+  }
+}

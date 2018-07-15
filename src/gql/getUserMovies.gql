@@ -1,0 +1,13 @@
+query getUserMovies($userId: String!) {
+  getUserMovies(userId: $userId) {
+    completed
+    id
+    film {
+      externalId
+      title
+      images {
+        main
+      }
+    }
+  }
+}

@@ -1,4 +1,4 @@
-import { Login, Home } from './views';
+import { Login, Home, Movies, Series } from './views';
 
 export const routes = [
   {
@@ -11,5 +11,15 @@ export const routes = [
     path: '/login',
     component: Login,
     authenticatedRequired: false
+  },
+  {
+    path: '/movies',
+    component: Movies,
+    authenticatedRequired: true
+  },
+  {
+    path: '/series',
+    component: Series,
+    authenticatedRequired: true
   }
 ];
