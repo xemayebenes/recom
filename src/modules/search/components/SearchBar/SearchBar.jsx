@@ -135,11 +135,7 @@ export class SearchBar extends PureComponent {
     return (
       <Fragment>
         <Container
-          className={classnames(
-            'w-50',
-            'position-absolute',
-            styles.searchContainer
-          )}
+          className={classnames('position-absolute', styles.searchContainer)}
         >
           <div className="d-flex">
             <Input

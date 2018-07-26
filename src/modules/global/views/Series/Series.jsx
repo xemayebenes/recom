@@ -4,7 +4,7 @@ import { injectIntl } from 'react-intl';
 import { Query, compose, withApollo } from 'react-apollo';
 import { withRouter } from 'react-router';
 
-import { Row, Col } from 'reactstrap';
+import { Row, Col, Container } from 'reactstrap';
 import { ActionsPanel } from 'modules/items/components';
 
 import getUserSeries from 'gql/getUserSeries.gql';
@@ -72,7 +72,7 @@ export class Series extends PureComponent {
 
   render() {
     return (
-      <Fragment>
+      <Container>
         <Query
           variables={{ userId: this.props.user.userId }}
           query={getUserSeries}
@@ -100,7 +100,7 @@ export class Series extends PureComponent {
                       <Row>{serie.serie.title} </Row>
                       <Row onClick={() => this.goToItemDetail(serie.id)}>
                         <img
-                          src={serie.serie.images.main}
+                          src={serie.serie.images.medium.main}
                           alt="main"
                           className="img-fluid p-2"
                         />
@@ -112,7 +112,7 @@ export class Series extends PureComponent {
             );
           }}
         </Query>
-      </Fragment>
+      </Container>
     );
   }
 }

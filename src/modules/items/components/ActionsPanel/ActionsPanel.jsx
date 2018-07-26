@@ -1,24 +1,30 @@
 import React from 'react';
 import { Row, Col, Button } from 'reactstrap';
 
+import faTrashAlt from '@fortawesome/fontawesome-free-regular/faTrashAlt';
+import faCheckCircle from '@fortawesome/fontawesome-free-regular/faCheckCircle';
+import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+
 const ActionsPanel = ({
   onClickDeleteButton,
   onClickCompleteButton,
   completed
 }) => (
-  <Row>
-    <Col>
-      <Button color="primary" onClick={onClickDeleteButton}>
-        Delete
+  <Row className="pt-2 pb-4">
+    <Col xs="6">
+      <Button outline size="sm" color="primary" onClick={onClickDeleteButton}>
+        <FontAwesomeIcon icon={faTrashAlt} /> <span>Delete</span>
       </Button>
     </Col>
-    <Col>
+    <Col xs="6">
       <Button
         disabled={completed}
+        outline
+        size="sm"
         color="secondary"
         onClick={onClickCompleteButton}
       >
-        Mark as view
+        <FontAwesomeIcon icon={faCheckCircle} /> <span>Mark as view</span>
       </Button>
     </Col>
   </Row>

@@ -20,7 +20,9 @@ export class LastItem extends React.PureComponent {
       title: PropTypes.string.isRequired,
       overview: PropTypes.string,
       images: PropTypes.shape({
-        main: PropTypes.string.isRequired
+        large: PropTypes.shape({
+          main: PropTypes.string.isRequired
+        })
       })
     })
   };
@@ -33,21 +35,36 @@ export class LastItem extends React.PureComponent {
   render() {
     const { type, item } = this.props;
     return (
-      <div onClick={this.goToItemDetail}>
-        <img src={item.images.main} alt="main" className={styles.poster} />
-        <div
-          className={classnames(
-            styles.title,
-            'd-flex',
-            'justify-content-between',
-            'align-items-center',
-            'px-5'
-          )}
-        >
-          {type === 'Movie' && <FontAwesomeIcon icon={faFilm} />}
-          {type === 'Serie' && <FontAwesomeIcon icon={faTv} />}
-          <span>{item.title} </span>
+      <div onClick={this.goToItemDetail} className={styles.lastItem}>
+        <div className={styles.lastItemDecorator}>
+          <div>
+            {type === 'Movie' && <FontAwesomeIcon icon={faFilm} />}
+            {type === 'Serie' && <FontAwesomeIcon icon={faTv} />}
+          </div>
         </div>
+        <div className={styles.posterWrap}>
+          <img
+            src={item.images.large.main}
+            alt="main"
+            className={styles.poster}
+          />
+          <span className="float-right mr-5">{item.title} </span>
+        </div>
+        {
+          // <div
+          //   className={classnames(
+          //     styles.title,
+          //     'd-flex',
+          //     'justify-content-between',
+          //     'align-items-center',
+          //     'px-5',
+          //   )}
+          // >
+          //   {type === 'Movie' && <FontAwesomeIcon icon={faFilm} />}
+          //   {type === 'Serie' && <FontAwesomeIcon icon={faTv} />}
+          //   <span>{item.title} </span>
+          // </div>
+        }
       </div>
     );
   }

@@ -23,8 +23,14 @@ mutation addMovie($externalId: Int!) {
         imdbRating
       }
       images {
-        main
-        secondary
+        medium {
+          main
+          secondary
+        }
+        large {
+          main
+          secondary
+        }
       }
     }
   }

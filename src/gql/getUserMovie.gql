@@ -23,8 +23,14 @@ query getUserMovie($id: String!, $userId: String!) {
         imdbRating
       }
       images {
-        main
-        secondary
+        medium {
+          main
+          secondary
+        }
+        large {
+          main
+          secondary
+        }
       }
     }
   }

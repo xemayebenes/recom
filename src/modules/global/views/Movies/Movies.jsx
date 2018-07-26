@@ -4,7 +4,7 @@ import { injectIntl } from 'react-intl';
 import { Query, compose, withApollo } from 'react-apollo';
 import { withRouter } from 'react-router';
 
-import { Row, Col } from 'reactstrap';
+import { Row, Col, Container } from 'reactstrap';
 import { ActionsPanel } from 'modules/items/components';
 
 import getUserMovies from 'gql/getUserMovies.gql';
@@ -72,7 +72,7 @@ export class Movies extends PureComponent {
 
   render() {
     return (
-      <Fragment>
+      <Container>
         <Query
           variables={{ userId: this.props.user.userId }}
           query={getUserMovies}
@@ -100,7 +100,7 @@ export class Movies extends PureComponent {
                       <Row>{movie.film.title} </Row>
                       <Row onClick={() => this.goToItemDetail(movie.id)}>
                         <img
-                          src={movie.film.images.main}
+                          src={movie.film.images.medium.main}
                           alt="main"
                           className="img-fluid p-2"
                         />
@@ -112,7 +112,7 @@ export class Movies extends PureComponent {
             );
           }}
         </Query>
-      </Fragment>
+      </Container>
     );
   }
 }

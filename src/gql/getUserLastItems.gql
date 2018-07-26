@@ -7,8 +7,10 @@ query getUserLastItems($userId: String!) {
       title
       overview
       images {
-        main
-        secondary
+        large {
+          main
+          secondary
+        }
       }
     }
   }

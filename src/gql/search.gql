@@ -3,8 +3,18 @@ query search($searchText: String!, $language: String) {
     externalId
     title
     images {
-      main
-      secondary
+      small {
+        main
+        secondary
+      }
+      medium {
+        main
+        secondary
+      }
+      large {
+        main
+        secondary
+      }
     }
     release_date
     overview
@@ -13,8 +23,18 @@ query search($searchText: String!, $language: String) {
     externalId
     title
     images {
-      main
-      secondary
+      small {
+        main
+        secondary
+      }
+      medium {
+        main
+        secondary
+      }
+      large {
+        main
+        secondary
+      }
     }
     first_air_date
     overview

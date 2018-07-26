@@ -23,8 +23,14 @@ mutation completeMovie($id: String!) {
         imdbRating
       }
       images {
-        main
-        secondary
+        medium {
+          main
+          secondary
+        }
+        large {
+          main
+          secondary
+        }
       }
     }
   }

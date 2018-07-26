@@ -20,8 +20,14 @@ mutation completeSerie($id: String!) {
         Poster
       }
       images {
-        main
-        secondary
+        medium {
+          main
+          secondary
+        }
+        large {
+          main
+          secondary
+        }
       }
     }
   }

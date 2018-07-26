@@ -3,6 +3,24 @@
   height: 300px;
   object-fit: cover;
 }
+.posterWrap {
+  flex: 20;
+  background-color: #691018;
+  color: white;
+}
+
+.lastItemDecorator {
+  flex: 1;
+  background-color: #691018;
+  color: white;
+  align-items: center;
+}
+.lastItem {
+  border-bottom: 2px;
+  border-color: black;
+  border-bottom-style: solid;
+  display: flex;
+}
 
 .title {
   top: -50px;
