@@ -68,6 +68,7 @@
     "@fortawesome/react-fontawesome": "^0.0.20",
     "apollo-boost": "^0.1.7",
     "apollo-link-context": "^1.0.8",
+    "apollo-link-ws": "^1.0.8",
     "bootstrap": "^4.1.1",
     "classnames": "^2.2.5",
     "dotenv": "4.0.0",
@@ -87,9 +88,11 @@
     "react-dom": "^16.4.0",
     "react-intl": "^2.4.0",
     "react-router-dom": "^4.3.1",
+    "react-toastify": "^4.1.0",
     "reactstrap": "^6.1.0",
     "recompose": "^0.26.0",
-    "resolve": "1.6.0"
+    "resolve": "1.6.0",
+    "subscriptions-transport-ws": "^0.9.13"
   },
   "lint-staged": {
     "src/**/*.{js,jsx,json,css}": [

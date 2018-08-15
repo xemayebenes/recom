@@ -1,0 +1,7 @@
+subscription($userId: String!) {
+  newNotification(userId: $userId) {
+    id
+    text
+    new
+  }
+}

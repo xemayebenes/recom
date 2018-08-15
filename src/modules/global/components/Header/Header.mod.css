@@ -6,3 +6,9 @@
 .title {
   float: right;
 }
+
+.menu {
+  background-color: black;
+  color: white;
+  height: 50px;
+}
