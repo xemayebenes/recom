@@ -1,7 +1,14 @@
 query notifications {
   notifications {
     id
-    text
     new
+    date
+    type
+    title
+    externalId
+    from {
+      id
+      email
+    }
   }
 }

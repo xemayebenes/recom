@@ -3,12 +3,8 @@ import PropTypes from 'prop-types';
 import { injectIntl } from 'react-intl';
 import debounce from 'lodash.debounce';
 import {
-  Button,
   Container,
   Input,
-  Modal,
-  ModalBody,
-  ModalFooter,
   TabContent,
   TabPane,
   Nav,
@@ -23,12 +19,8 @@ import { withRouter } from 'react-router';
 import { MOVIE, SERIE } from 'modules/constants';
 
 import search from 'gql/search.gql';
-import addMovie from 'gql/addMovie.gql';
-import addSerie from 'gql/addSerie.gql';
-import getUserLastItems from 'gql/getUserLastItems.gql';
 
-import { SearchItem } from 'modules/search/components';
-import { MovieData, SerieData } from 'modules/items/components';
+import { SearchItem, SearchItemModal } from 'modules/search/components';
 
 import styles from './SearchBar.mod.css';
 
@@ -82,45 +74,18 @@ export class SearchBar extends PureComponent {
     this.setState({ showModal: false, item: null });
   };
 
-  handleSave = async _ => {
-    console.log(this.state.item);
+  handleSave = async id => {
+    this.setState({
+      showModal: false,
+      item: null,
+      searchItems: [],
+      searchText: ''
+    });
     if (this.state.itemType === MOVIE) {
-      const result = await this.props.client.mutate({
-        mutation: addMovie,
-        variables: { externalId: this.state.item.externalId },
-        refetchQueries: [
-          {
-            query: getUserLastItems,
-            variables: { userId: this.props.userId }
-          }
-        ]
-      });
-      this.setState({
-        showModal: false,
-        item: null,
-        searchItems: [],
-        searchText: ''
-      });
-      this.props.history.push(`/item-detail/movie/${result.data.addMovie.id}`);
+      this.props.history.push(`/item-detail/movie/${id}`);
     }
     if (this.state.itemType === SERIE) {
-      const result = await this.props.client.mutate({
-        mutation: addSerie,
-        variables: { externalId: this.state.item.externalId },
-        refetchQueries: [
-          {
-            query: getUserLastItems,
-            variables: { userId: this.props.userId }
-          }
-        ]
-      });
-      this.setState({
-        showModal: false,
-        item: null,
-        searchItems: [],
-        searchText: ''
-      });
-      this.props.history.push(`/item-detail/serie/${result.data.addSerie.id}`);
+      this.props.history.push(`/item-detail/serie/${id}`);
     }
   };
 
@@ -206,20 +171,12 @@ export class SearchBar extends PureComponent {
           )}
         </Container>
         {showModal && (
-          <Modal isOpen={showModal} toggle={this.toggle}>
-            <ModalBody>
-              {itemType === MOVIE && <MovieData {...item} />}
-              {itemType === SERIE && <SerieData {...item} />}
-            </ModalBody>
-            <ModalFooter>
-              <Button color="primary" onClick={this.handleSave}>
-                Guardar
-              </Button>
-              <Button color="secondary" onClick={this.handleCloseModal}>
-                Cancel
-              </Button>
-            </ModalFooter>
-          </Modal>
+          <SearchItemModal
+            item={item}
+            itemType={itemType}
+            onClickSaveButton={this.handleSave}
+            onClickCancelButton={this.handleCloseModal}
+          />
         )}
       </Fragment>
     );

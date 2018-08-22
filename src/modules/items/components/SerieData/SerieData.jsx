@@ -15,8 +15,8 @@ const SerieData = ({
   <React.Fragment>
     <div>{title}</div>
     <div>----------------------</div>
-    <img src={images.large.main} alt="main" />
-    <img src={images.large.secondary} alt="secondary" />
+    <img src={images.large.main} alt="main" className="img-fluid" />
+    <img src={images.large.secondary} alt="secondary" className="img-fluid" />
     <div>----------------------</div>
     <div>{overview}</div>
     <div>----------------------</div>

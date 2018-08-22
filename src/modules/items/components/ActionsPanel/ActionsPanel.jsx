@@ -8,15 +8,16 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 const ActionsPanel = ({
   onClickDeleteButton,
   onClickCompleteButton,
+  onClickShare,
   completed
 }) => (
   <Row className="pt-2 pb-4">
-    <Col xs="6">
+    <Col xs="4">
       <Button outline size="sm" color="primary" onClick={onClickDeleteButton}>
         <FontAwesomeIcon icon={faTrashAlt} /> <span>Delete</span>
       </Button>
     </Col>
-    <Col xs="6">
+    <Col xs="4">
       <Button
         disabled={completed}
         outline
@@ -26,6 +27,13 @@ const ActionsPanel = ({
       >
         <FontAwesomeIcon icon={faCheckCircle} /> <span>Mark as view</span>
       </Button>
+    </Col>
+    <Col xs="4">
+      {onClickShare && (
+        <Button outline size="sm" color="secondary" onClick={onClickShare}>
+          <FontAwesomeIcon icon={faCheckCircle} /> <span>Share</span>
+        </Button>
+      )}
     </Col>
   </Row>
 );

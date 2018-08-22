@@ -1,0 +1,26 @@
+query getMovie($externalId: Int!) {
+  getMovie(externalId: $externalId) {
+    externalId
+    images {
+      large {
+        main
+        secondary
+      }
+    }
+    title
+    overview
+    popularity
+    vote_average
+    omdbData {
+      imdbRating
+    }
+    videoData {
+      key
+      trailer
+    }
+    genres {
+      id
+      name
+    }
+  }
+}

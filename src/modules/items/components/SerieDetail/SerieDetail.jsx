@@ -1,10 +1,11 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl } from 'react-intl';
 import { Query, compose, withApollo } from 'react-apollo';
 import { withRouter } from 'react-router';
 
 import { SerieData, ActionsPanel } from 'modules/items/components';
+import { SendNotificationModal } from 'modules/notifications';
 
 import getUserSerie from 'gql/getUserSerie.gql';
 import removeSerie from 'gql/removeSerie.gql';
@@ -19,8 +20,17 @@ export class SerieDetail extends PureComponent {
     userId: PropTypes.string.isRequired
   };
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      externalId: undefined,
+      title: undefined,
+      showModal: false
+    };
+  }
+
   handleDeleteItem = async id => {
-    const result = await this.props.client.mutate({
+    await this.props.client.mutate({
       mutation: removeSerie,
       variables: { id },
       update: (cache, { data: { removeSerie } }) => {
@@ -48,7 +58,7 @@ export class SerieDetail extends PureComponent {
   };
 
   handleCompleteMovie = async id => {
-    const result = await this.props.client.mutate({
+    await this.props.client.mutate({
       mutation: completeSerie,
       variables: { id },
       update: (cache, { data: { completeSerie } }) => {
@@ -72,33 +82,60 @@ export class SerieDetail extends PureComponent {
       }
     });
   };
-  render() {
-    return (
-      <Query
-        variables={{ id: this.props.id, userId: this.props.userId }}
-        query={getUserSerie}
-      >
-        {({ loading, error, data }) => {
-          if (loading) return <p>Loading...</p>;
-          if (error) return <p>Error :(</p>;
-          const serie = data.getUserSerie.serie;
 
-          return (
-            <React.Fragment>
-              <ActionsPanel
-                onClickDeleteButton={() =>
-                  this.handleDeleteItem(data.getUserSerie.id)
-                }
-                onClickCompleteButton={() =>
-                  this.handleCompleteMovie(data.getUserSerie.id)
-                }
-                completed={data.getUserSerie.completed}
-              />
-              <SerieData {...serie} completed={data.getUserSerie.completed} />
-            </React.Fragment>
-          );
-        }}
-      </Query>
+  openShareModal = ({ externalId, serie: { title } }) => {
+    console.log({ externalId, title });
+    this.setState({ showModal: true, externalId, title });
+  };
+
+  handleCloseModal = _ => {
+    this.setState({
+      showModal: false,
+      externalId: undefined,
+      title: undefined
+    });
+  };
+
+  render() {
+    const { showModal, externalId, title } = this.state;
+
+    return (
+      <Fragment>
+        <Query
+          variables={{ id: this.props.id, userId: this.props.userId }}
+          query={getUserSerie}
+        >
+          {({ loading, error, data }) => {
+            if (loading) return <p>Loading...</p>;
+            if (error) return <p>Error :(</p>;
+            const serie = data.getUserSerie.serie;
+
+            return (
+              <React.Fragment>
+                <ActionsPanel
+                  onClickDeleteButton={() =>
+                    this.handleDeleteItem(data.getUserSerie.id)
+                  }
+                  onClickCompleteButton={() =>
+                    this.handleCompleteMovie(data.getUserSerie.id)
+                  }
+                  onClickShare={() => this.openShareModal(data.getUserSerie)}
+                  completed={data.getUserSerie.completed}
+                />
+                <SerieData {...serie} completed={data.getUserSerie.completed} />
+              </React.Fragment>
+            );
+          }}
+        </Query>
+        {showModal && (
+          <SendNotificationModal
+            externalId={externalId}
+            type={'Serie'}
+            title={title}
+            handleCloseModal={this.handleCloseModal}
+          />
+        )}
+      </Fragment>
     );
   }
 }

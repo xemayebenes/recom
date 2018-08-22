@@ -1,5 +1,5 @@
-subscription($userId: String!) {
-  newNotification(userId: $userId) {
+mutation markNotification($id: String!) {
+  markNotification(id: $id) {
     id
     new
     date

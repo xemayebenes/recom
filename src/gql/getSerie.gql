@@ -1,0 +1,23 @@
+query getSerie($externalId: Int!) {
+  getSerie(externalId: $externalId) {
+    externalId
+    images {
+      large {
+        main
+        secondary
+      }
+    }
+    title
+    overview
+    popularity
+    vote_average
+    videoData {
+      key
+      trailer
+    }
+    genres {
+      id
+      name
+    }
+  }
+}
