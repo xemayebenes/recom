@@ -1,0 +1,18 @@
+query getLists($type: String, $userId: String!) {
+  lists(type: $type, userId: $userId) {
+    id
+    name
+    date
+    type
+    items {
+      id
+      externalId
+      title
+      images {
+        small {
+          main
+        }
+      }
+    }
+  }
+}
