@@ -5,14 +5,24 @@ import { Query, compose, withApollo } from 'react-apollo';
 import { withRouter } from 'react-router';
 
 import { Row, Col, Container } from 'reactstrap';
+import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import faFilm from '@fortawesome/fontawesome-free-solid/faFilm';
+import faTv from '@fortawesome/fontawesome-free-solid/faTv';
 
 import getLists from 'gql/getLists.gql';
 
 export class UserLists extends PureComponent {
   static displayName = 'UserLists';
 
-  goToItemDetail = (id, type) =>
-    this.props.history.push(`/item-detail/${type.toLowerCase()}/${id}`);
+  goToItemDetail = (id, type) => {
+    const route = `/item-detail/${type.toLowerCase()}/${id}`;
+    this.props.history.push(route);
+  };
+
+  goToListDetail = id => {
+    const route = `/lists/${id}`;
+    this.props.history.push(route);
+  };
 
   render() {
     return (
@@ -26,18 +36,35 @@ export class UserLists extends PureComponent {
               <Fragment>
                 <Row className="m-3">
                   {data.lists.map(list => (
-                    <Col xs="12" md="6" lg="4" key={list.id} className="border">
-                      <div>{list.name}</div>
-                      <div>{list.type}</div>
+                    <Col
+                      xs="12"
+                      md="6"
+                      lg="4"
+                      key={list.id}
+                      className="border"
+                      onClick={() => this.goToListDetail(list.id)}
+                    >
+                      <div>
+                        {list.type === 'Movie' && (
+                          <FontAwesomeIcon icon={faFilm} />
+                        )}
+                        {list.type === 'Serie' && (
+                          <FontAwesomeIcon icon={faTv} />
+                        )}
+                        {'   '}
+                        {list.name}
+                      </div>
                       <Row>
                         {list.items.slice(0, 4).map(item => (
                           <Col xs="6" key={item.id}>
                             <img
                               src={item.images.small.main}
                               alt="main"
-                              onClick={() =>
-                                this.goToItemDetail(item.id, list.type)
-                              }
+                              onClick={event => {
+                                event.stopPropagation();
+
+                                this.goToItemDetail(item.id, list.type);
+                              }}
                             />
                             <div> {item.title} </div>
                           </Col>

@@ -1,0 +1,18 @@
+query getList($userId: String!, $listId: String!) {
+  list(userId: $userId, id: $listId) {
+    id
+    name
+    date
+    type
+    items {
+      id
+      externalId
+      title
+      images {
+        medium {
+          main
+        }
+      }
+    }
+  }
+}
