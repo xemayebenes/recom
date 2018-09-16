@@ -18,7 +18,7 @@ import { withRouter } from 'react-router';
 
 import { MOVIE, SERIE } from 'modules/constants';
 
-import search from 'gql/search.gql';
+import search from 'gql/search/search.gql';
 
 import { SearchItem, SearchItemModal } from 'modules/search/components';
 

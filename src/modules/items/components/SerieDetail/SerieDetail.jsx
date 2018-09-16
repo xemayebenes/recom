@@ -7,10 +7,10 @@ import { withRouter } from 'react-router';
 import { SerieData, ActionsPanel } from 'modules/items/components';
 import { SendNotificationModal } from 'modules/notifications';
 
-import getUserSerie from 'gql/getUserSerie.gql';
-import removeSerie from 'gql/removeSerie.gql';
-import completeSerie from 'gql/completeSerie.gql';
-import getUserLastItems from 'gql/getUserLastItems.gql';
+import getUserSerie from 'gql/series/getUserSerie.gql';
+import removeSerie from 'gql/series/removeSerie.gql';
+import completeSerie from 'gql/series/completeSerie.gql';
+import getUserLastItems from 'gql/lastItems/getUserLastItems.gql';
 
 export class SerieDetail extends PureComponent {
   static displayName = 'SerieDetail';

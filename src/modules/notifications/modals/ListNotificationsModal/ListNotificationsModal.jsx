@@ -16,8 +16,8 @@ import {
 import { MOVIE, SERIE, LIST } from 'modules/constants';
 
 import { SearchItemModal } from 'modules/search/components';
-import getMovie from 'gql/getMovie.gql';
-import getSerie from 'gql/getSerie.gql';
+import getMovie from 'gql/movies/getMovie.gql';
+import getSerie from 'gql/series/getSerie.gql';
 
 import styles from './ListNotificationsModal.mod.css';
 

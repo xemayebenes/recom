@@ -9,7 +9,7 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import faFilm from '@fortawesome/fontawesome-free-solid/faFilm';
 import faTv from '@fortawesome/fontawesome-free-solid/faTv';
 
-import getLists from 'gql/getLists.gql';
+import getLists from 'gql/lists/getLists.gql';
 
 export class UserLists extends PureComponent {
   static displayName = 'UserLists';

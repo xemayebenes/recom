@@ -7,11 +7,11 @@ import { withRouter } from 'react-router';
 import { Row, Col, Container } from 'reactstrap';
 import { ActionsPanel } from 'modules/items/components';
 
-import getUserMovies from 'gql/getUserMovies.gql';
-import removeMovie from 'gql/removeMovie.gql';
-import completeMovie from 'gql/completeMovie.gql';
+import getUserMovies from 'gql/movies/getUserMovies.gql';
+import removeMovie from 'gql/movies/removeMovie.gql';
+import completeMovie from 'gql/movies/completeMovie.gql';
 
-import getUserLastItems from 'gql/getUserLastItems.gql';
+import getUserLastItems from 'gql/lastItems/getUserLastItems.gql';
 
 import styles from './Movies.mod.css';
 export class Movies extends PureComponent {

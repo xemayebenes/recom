@@ -4,7 +4,7 @@ import { injectIntl } from 'react-intl';
 import { Query } from 'react-apollo';
 
 import { LastItem } from 'modules/items/components';
-import getUserLastItems from 'gql/getUserLastItems.gql';
+import getUserLastItems from 'gql/lastItems/getUserLastItems.gql';
 
 export class LastItems extends PureComponent {
   static displayName = 'LastItems';

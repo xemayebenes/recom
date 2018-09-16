@@ -4,10 +4,10 @@ import { injectIntl } from 'react-intl';
 import { Query, compose, withApollo } from 'react-apollo';
 import { withRouter } from 'react-router';
 
-import getUserMovie from 'gql/getUserMovie.gql';
-import removeMovie from 'gql/removeMovie.gql';
-import completeMovie from 'gql/completeMovie.gql';
-import getUserLastItems from 'gql/getUserLastItems.gql';
+import getUserMovie from 'gql/movies/getUserMovie.gql';
+import removeMovie from 'gql/movies/removeMovie.gql';
+import completeMovie from 'gql/movies/completeMovie.gql';
+import getUserLastItems from 'gql/lastItems/getUserLastItems.gql';
 
 import { MovieData, ActionsPanel } from 'modules/items/components';
 import { SendNotificationModal } from 'modules/notifications';

@@ -4,7 +4,7 @@ import { Query } from 'react-apollo';
 
 import { Label, Input } from 'reactstrap';
 
-import getLists from 'gql/getLists.gql';
+import getLists from 'gql/lists/getLists.gql';
 
 const ListSelect = ({ userId, onSelectItem, type }) => (
   <Query variables={{ userId: userId, type }} query={getLists}>

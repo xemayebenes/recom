@@ -14,13 +14,13 @@ import faShareAlt from '@fortawesome/fontawesome-free-solid/faShareAlt';
 import { ActionsPanel } from 'modules/items/components';
 import { SendNotificationModal } from 'modules/notifications';
 
-import getList from 'gql/getList.gql';
-import getLists from 'gql/getLists.gql';
-import REMOVE_LIST from 'gql/removeList.gql';
-import removeItemFromList from 'gql/removeItemFromList.gql';
-// import completeMovie from 'gql/completeMovie.gql';
+import getList from 'gql/lists/getList.gql';
+import getLists from 'gql/lists/getLists.gql';
+import REMOVE_LIST from 'gql/lists/removeList.gql';
+import removeItemFromList from 'gql/lists/removeItemFromList.gql';
+// import completeMovie from 'gql/movies/completeMovie.gql';
 //
-// import getUserLastItems from 'gql/getUserLastItems.gql';
+// import getUserLastItems from 'gql/lastItems/getUserLastItems.gql';
 
 export class Movies extends PureComponent {
   static displayName = 'Movies';

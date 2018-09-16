@@ -8,8 +8,8 @@ import { Button, Container, Row, Col } from 'reactstrap';
 
 import { MOVIE, SERIE } from 'modules/constants';
 
-import IMPORT_LIST from 'gql/importList.gql';
-import getLists from 'gql/getLists.gql';
+import IMPORT_LIST from 'gql/lists/importList.gql';
+import getLists from 'gql/lists/getLists.gql';
 
 export class ImportList extends PureComponent {
   componentDidMount = async () => {

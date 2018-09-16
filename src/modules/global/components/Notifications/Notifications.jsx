@@ -5,9 +5,9 @@ import classnames from 'classnames';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import faBell from '@fortawesome/fontawesome-free-regular/faBell';
 
-import subNewNotification from 'gql/subNewNotification.gql';
-import getNotifications from 'gql/getNotifications.gql';
-import markNotification from 'gql/markNotification.gql';
+import subNewNotification from 'gql/notifications/subNewNotification.gql';
+import getNotifications from 'gql/notifications/getNotifications.gql';
+import markNotification from 'gql/notifications/markNotification.gql';
 
 import { ListNotificationsModal } from 'modules/notifications';
 

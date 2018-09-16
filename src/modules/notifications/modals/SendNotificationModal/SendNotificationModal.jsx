@@ -4,7 +4,7 @@ import { compose, withApollo } from 'react-apollo';
 
 import { Button, Input, Modal, ModalBody, ModalFooter } from 'reactstrap';
 
-import sendNotification from 'gql/sendNotification.gql';
+import sendNotification from 'gql/notifications/sendNotification.gql';
 
 export class SendNotificationModal extends PureComponent {
   static displayName = 'SendNotificationModal';

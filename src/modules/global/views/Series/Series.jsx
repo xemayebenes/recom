@@ -7,11 +7,11 @@ import { withRouter } from 'react-router';
 import { Row, Col, Container } from 'reactstrap';
 import { ActionsPanel } from 'modules/items/components';
 
-import getUserSeries from 'gql/getUserSeries.gql';
-import removeSerie from 'gql/removeSerie.gql';
-import completeMovie from 'gql/completeMovie.gql';
+import getUserSeries from 'gql/series/getUserSeries.gql';
+import removeSerie from 'gql/series/removeSerie.gql';
+import completeMovie from 'gql/movies/completeMovie.gql';
 
-import getUserLastItems from 'gql/getUserLastItems.gql';
+import getUserLastItems from 'gql/lastItems/getUserLastItems.gql';
 
 import styles from './Series.mod.css';
 export class Series extends PureComponent {

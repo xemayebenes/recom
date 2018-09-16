@@ -8,10 +8,10 @@ import { getUserId } from 'utils/security';
 import { MOVIE, SERIE } from 'modules/constants';
 import { MovieData, SerieData } from 'modules/items/components';
 import { ListSelect } from 'modules/global/components';
-import addMovie from 'gql/addMovie.gql';
-import addSerie from 'gql/addSerie.gql';
-import getUserLastItems from 'gql/getUserLastItems.gql';
-import addItemToList from 'gql/addItemToList.gql';
+import addMovie from 'gql/movies/addMovie.gql';
+import addSerie from 'gql/series/addSerie.gql';
+import getUserLastItems from 'gql/lastItems/getUserLastItems.gql';
+import addItemToList from 'gql/lists/addItemToList.gql';
 
 export class SearchItemModal extends PureComponent {
   static displayName = 'SearchItemModal';

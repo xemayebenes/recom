@@ -23,10 +23,10 @@ import faTv from '@fortawesome/fontawesome-free-solid/faTv';
 
 import { MOVIE, SERIE } from 'modules/constants';
 
-import getUserMovies from 'gql/getUserMovies.gql';
-import getUserSeries from 'gql/getUserSeries.gql';
-import CREATE_LIST from 'gql/createList.gql';
-import getLists from 'gql/getLists.gql';
+import getUserMovies from 'gql/movies/getUserMovies.gql';
+import getUserSeries from 'gql/series/getUserSeries.gql';
+import CREATE_LIST from 'gql/lists/createList.gql';
+import getLists from 'gql/lists/getLists.gql';
 
 export class ListForm extends PureComponent {
   constructor(props) {
