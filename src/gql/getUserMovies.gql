@@ -6,6 +6,10 @@ query getUserMovies($userId: String!) {
       externalId
       title
       images {
+        small {
+          main
+          secondary
+        }
         medium {
           main
         }

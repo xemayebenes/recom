@@ -1,10 +1,10 @@
 import React, { PureComponent, Fragment } from 'react';
 import { injectIntl } from 'react-intl';
 
-import { Query, compose, withApollo } from 'react-apollo';
+import { Query, compose, withApollo, Mutation } from 'react-apollo';
 import { withRouter } from 'react-router';
 
-import { Row, Col, Container } from 'reactstrap';
+import { Row, Col, Container, Button } from 'reactstrap';
 
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import faFilm from '@fortawesome/fontawesome-free-solid/faFilm';
@@ -14,6 +14,7 @@ import { ActionsPanel } from 'modules/items/components';
 
 import getList from 'gql/getList.gql';
 import getLists from 'gql/getLists.gql';
+import REMOVE_LIST from 'gql/removeList.gql';
 import removeItemFromList from 'gql/removeItemFromList.gql';
 // import completeMovie from 'gql/completeMovie.gql';
 //
@@ -26,42 +27,7 @@ export class Movies extends PureComponent {
     const route = `/item-detail/${type.toLowerCase()}/${id}`;
     this.props.history.push(route);
   };
-  // updateList = (cache, userId, id) => {
-  //   const data = cache.readQuery({
-  //     query: getUserMovies,
-  //     variables: {
-  //       userId: this.props.user.userId
-  //     }
-  //   });
-  //
-  //   cache.writeQuery({
-  //     query: getUserMovies,
-  //     variables: {
-  //       userId: this.props.user.userId
-  //     },
-  //     data: {
-  //       getUserMovies: data.getUserMovies.filter(li => li.id !== id)
-  //     }
-  //   });
-  // };
 
-  handleDeleteItem = async id => {
-    // await this.props.client.mutate({
-    //   mutation: removeMovie,
-    //   variables: { id },
-    //   refetchQueries: [
-    //     {
-    //       query: getUserLastItems,
-    //       variables: {
-    //         userId: this.props.user.userId
-    //       }
-    //     }
-    //   ],
-    //   update: (cache, { data: { removeMovie } }) => {
-    //     this.updateList(cache, this.props.user.userId, id);
-    //   }
-    // });
-  };
   handleRemoveItemFromList = async id => {
     await this.props.client.mutate({
       mutation: removeItemFromList,
@@ -74,24 +40,7 @@ export class Movies extends PureComponent {
           }
         }
       ]
-      // update: (cache, { data: { removeMovie } }) => {
-      //   this.updateList(cache, this.props.user.userId, id);
-      // }
     });
-  };
-  handleCompleteMovie = async id => {
-    // await this.props.client.mutate({
-    //   mutation: completeMovie,
-    //   variables: { id },
-    //   refetchQueries: [
-    //     {
-    //       query: getUserLastItems,
-    //       variables: {
-    //         userId: this.props.user.userId
-    //       }
-    //     }
-    //   ]
-    // });
   };
 
   render() {
@@ -120,20 +69,55 @@ export class Movies extends PureComponent {
                     )}
                     {'   '}
                     {data.list.name}
+                    {'   '}
+                    {data.list.description && (
+                      <div>{data.list.description}</div>
+                    )}
                   </div>
+                  <Mutation
+                    mutation={REMOVE_LIST}
+                    onCompleted={() => this.props.history.push('/lists')}
+                  >
+                    {(removelist, { loading, error }) => (
+                      <Button
+                        color="secondary"
+                        onClick={async () => {
+                          await removelist({
+                            variables: {
+                              listId: data.list.id
+                            },
+                            update: (proxy, { data }) => {
+                              const cache = proxy.readQuery({
+                                query: getLists,
+                                variables: {
+                                  userId: this.props.user.userId
+                                }
+                              });
+                              proxy.writeQuery({
+                                query: getLists,
+                                variables: {
+                                  userId: this.props.user.userId
+                                },
+                                data: {
+                                  lists: cache.lists.filter(
+                                    list => list.id !== data.removeList
+                                  )
+                                }
+                              });
+                            }
+                          });
+                        }}
+                      >
+                        Remove
+                      </Button>
+                    )}
+                  </Mutation>
                 </Row>
-
                 <Row>
                   {data.list.items.map(item => (
                     <Col xs="12" md="6" lg="4" key={item.id}>
                       <Row>
                         <ActionsPanel
-                          onClickDeleteButton={() =>
-                            this.handleDeleteItem(item.id)
-                          }
-                          onClickCompleteButton={() =>
-                            this.handleCompleteMovie(item.id)
-                          }
                           onClickRemoveFromList={() =>
                             this.handleRemoveItemFromList(item.id)
                           }

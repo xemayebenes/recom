@@ -1,6 +1,7 @@
 query getLists($type: String, $userId: String!) {
   lists(type: $type, userId: $userId) {
     id
+    description
     name
     date
     type

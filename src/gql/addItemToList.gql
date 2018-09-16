@@ -1,7 +1,6 @@
-query getList($userId: String!, $listId: String!) {
-  list(userId: $userId, id: $listId) {
+mutation addItemToList($itemId: String!, $listId: String!) {
+  addItemToList(itemId: $itemId, listId: $listId) {
     id
-    description
     name
     date
     type
@@ -10,7 +9,7 @@ query getList($userId: String!, $listId: String!) {
       externalId
       title
       images {
-        medium {
+        small {
           main
         }
       }

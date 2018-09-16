@@ -15,22 +15,26 @@ const ActionsPanel = ({
   completed
 }) => (
   <Row className="pt-2 pb-4">
-    <Col xs="4">
-      <Button outline size="sm" color="primary" onClick={onClickDeleteButton}>
-        <FontAwesomeIcon icon={faTrashAlt} />
-      </Button>
-    </Col>
-    <Col xs="4">
-      <Button
-        disabled={completed}
-        outline
-        size="sm"
-        color="secondary"
-        onClick={onClickCompleteButton}
-      >
-        <FontAwesomeIcon icon={faCheckCircle} />
-      </Button>
-    </Col>
+    {onClickDeleteButton && (
+      <Col xs="4">
+        <Button outline size="sm" color="primary" onClick={onClickDeleteButton}>
+          <FontAwesomeIcon icon={faTrashAlt} />
+        </Button>
+      </Col>
+    )}
+    {onClickCompleteButton && (
+      <Col xs="4">
+        <Button
+          disabled={completed}
+          outline
+          size="sm"
+          color="secondary"
+          onClick={onClickCompleteButton}
+        >
+          <FontAwesomeIcon icon={faCheckCircle} />
+        </Button>
+      </Col>
+    )}
     {onClickShare && (
       <Col xs="4">
         <Button outline size="sm" color="secondary" onClick={onClickShare}>

@@ -4,7 +4,7 @@ import { injectIntl } from 'react-intl';
 import { Query, compose, withApollo } from 'react-apollo';
 import { withRouter } from 'react-router';
 
-import { Row, Col, Container } from 'reactstrap';
+import { Row, Col, Container, Button } from 'reactstrap';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import faFilm from '@fortawesome/fontawesome-free-solid/faFilm';
 import faTv from '@fortawesome/fontawesome-free-solid/faTv';
@@ -24,9 +24,18 @@ export class UserLists extends PureComponent {
     this.props.history.push(route);
   };
 
+  goToNewListForm = () => this.props.history.push('/lists/new');
+
   render() {
     return (
       <Container>
+        <Row className="m-3">
+          <Col xs={{ size: 2, offset: 11 }}>
+            <Button size="sm" color="primary" onClick={this.goToNewListForm}>
+              New List
+            </Button>
+          </Col>
+        </Row>
         <Query variables={{ userId: this.props.user.userId }} query={getLists}>
           {({ loading, error, data }) => {
             if (loading) return <p>Loading...</p>;
@@ -34,14 +43,11 @@ export class UserLists extends PureComponent {
 
             return (
               <Fragment>
-                <Row className="m-3">
+                <Row className="flex-wrap flex-row justify-content-start d-flex">
                   {data.lists.map(list => (
-                    <Col
-                      xs="12"
-                      md="6"
-                      lg="4"
+                    <div
                       key={list.id}
-                      className="border"
+                      className="m-3 shadow flex-wrap flex-column d-flex align-items-start"
                       onClick={() => this.goToListDetail(list.id)}
                     >
                       <div>
@@ -54,9 +60,9 @@ export class UserLists extends PureComponent {
                         {'   '}
                         {list.name}
                       </div>
-                      <Row>
+                      <div className="m-3 flex-wrap flex-row justify-content-between d-flex">
                         {list.items.slice(0, 4).map(item => (
-                          <Col xs="6" key={item.id}>
+                          <div key={item.id}>
                             <img
                               src={item.images.small.main}
                               alt="main"
@@ -66,11 +72,10 @@ export class UserLists extends PureComponent {
                                 this.goToItemDetail(item.id, list.type);
                               }}
                             />
-                            <div> {item.title} </div>
-                          </Col>
+                          </div>
                         ))}
-                      </Row>
-                    </Col>
+                      </div>
+                    </div>
                   ))}
                 </Row>
               </Fragment>

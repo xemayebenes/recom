@@ -1,0 +1,28 @@
+mutation createList(
+  $name: String!
+  $description: String
+  $type: String!
+  $items: [String]
+) {
+  createList(
+    name: $name
+    description: $description
+    type: $type
+    items: $items
+  ) {
+    id
+    name
+    date
+    type
+    items {
+      id
+      externalId
+      title
+      images {
+        small {
+          main
+        }
+      }
+    }
+  }
+}

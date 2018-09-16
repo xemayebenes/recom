@@ -1,4 +1,12 @@
-import { Login, Home, Movies, Series, UserLists, UserList } from './views';
+import {
+  Login,
+  Home,
+  Movies,
+  Series,
+  UserLists,
+  UserList,
+  ListForm
+} from './views';
 
 export const routes = [
   {
@@ -20,6 +28,11 @@ export const routes = [
   {
     path: '/series',
     component: Series,
+    authenticatedRequired: true
+  },
+  {
+    path: '/lists/new',
+    component: ListForm,
     authenticatedRequired: true
   },
   {

@@ -7,12 +7,29 @@ import { getUserId } from 'utils/security';
 
 import { MOVIE, SERIE } from 'modules/constants';
 import { MovieData, SerieData } from 'modules/items/components';
+import { ListSelect } from 'modules/global/components';
 import addMovie from 'gql/addMovie.gql';
 import addSerie from 'gql/addSerie.gql';
 import getUserLastItems from 'gql/getUserLastItems.gql';
+import addItemToList from 'gql/addItemToList.gql';
 
 export class SearchItemModal extends PureComponent {
   static displayName = 'SearchItemModal';
+
+  state = {
+    listSelected: null
+  };
+
+  handleSelectList = list => {
+    this.setState({ listSelected: list });
+  };
+
+  addToList = async itemId => {
+    await this.props.client.mutate({
+      mutation: addItemToList,
+      variables: { listId: this.state.listSelected, itemId }
+    });
+  };
 
   handleSave = async _ => {
     if (this.props.itemType === MOVIE) {
@@ -26,6 +43,10 @@ export class SearchItemModal extends PureComponent {
           }
         ]
       });
+      this.state.listSelected &&
+        (await this.addToList(result.data.addMovie.id));
+
+      this.setState({ listSelected: null });
       this.props.onClickSaveButton(result.data.addMovie.id);
     }
     if (this.props.itemType === SERIE) {
@@ -39,11 +60,20 @@ export class SearchItemModal extends PureComponent {
           }
         ]
       });
+      this.state.listSelected &&
+        (await this.addToList(result.data.addSerie.id));
+      this.setState({ listSelected: null });
       this.props.onClickSaveButton(result.data.addSerie.id);
     }
   };
+
+  handleCancel = () => {
+    this.setState({ listSelected: null });
+    this.props.onClickCancelButton();
+  };
+
   render() {
-    const { item, itemType, onClickCancelButton } = this.props;
+    const { item, itemType } = this.props;
     return (
       <Modal isOpen={true}>
         <ModalBody>
@@ -51,10 +81,15 @@ export class SearchItemModal extends PureComponent {
           {itemType === SERIE && <SerieData {...item} />}
         </ModalBody>
         <ModalFooter>
+          <ListSelect
+            userId={getUserId()}
+            onSelectItem={event => this.handleSelectList(event.target.value)}
+            type={itemType}
+          />
           <Button color="primary" onClick={this.handleSave}>
             Guardar
           </Button>
-          <Button color="secondary" onClick={onClickCancelButton}>
+          <Button color="secondary" onClick={this.handleCancel}>
             Cancel
           </Button>
         </ModalFooter>
