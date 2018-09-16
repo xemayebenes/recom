@@ -1,6 +1,7 @@
 import React, { PureComponent, Fragment } from 'react';
 import { injectIntl } from 'react-intl';
 import { compose, withApollo } from 'react-apollo';
+import { withRouter } from 'react-router';
 
 import {
   Button,
@@ -12,7 +13,7 @@ import {
   ListGroupItemHeading,
   ListGroupItemText
 } from 'reactstrap';
-import { MOVIE, SERIE } from 'modules/constants';
+import { MOVIE, SERIE, LIST } from 'modules/constants';
 
 import { SearchItemModal } from 'modules/search/components';
 import getMovie from 'gql/getMovie.gql';
@@ -29,38 +30,50 @@ export class ListNotificationsModal extends PureComponent {
     itemType: undefined
   };
 
-  handleSelectItem = async (externalId, itemType, notificationId) => {
+  handleSelectItem = async (externalId, itemType, notificationId, listId) => {
     let data;
-    if (itemType === MOVIE) {
-      const result = await this.props.client.query({
-        query: getMovie,
-        variables: {
-          externalId
-        }
+    if (itemType === LIST) {
+      // this.setState({
+      //   showSearchItemModal: false,
+      //   item: undefined,
+      //   itemType: undefined,
+      //   notificationId: undefined
+      // });
+      await this.props.onClickDismissNotification(notificationId);
+      // this.props.handleCloseModal();
+      this.props.history.push(`/lists/import/${listId}`);
+    } else {
+      if (itemType === MOVIE) {
+        const result = await this.props.client.query({
+          query: getMovie,
+          variables: {
+            externalId
+          }
+        });
+
+        data = result.data.getMovie;
+      }
+
+      if (itemType === SERIE) {
+        const result = await this.props.client.query({
+          query: getSerie,
+          variables: {
+            externalId
+          }
+        });
+        data = result.data.getSerie;
+      }
+
+      this.setState({
+        showSearchItemModal: true,
+        item: data,
+        itemType,
+        notificationId
       });
-
-      data = result.data.getMovie;
     }
-
-    if (itemType === SERIE) {
-      const result = await this.props.client.query({
-        query: getSerie,
-        variables: {
-          externalId
-        }
-      });
-      data = result.data.getSerie;
-    }
-
-    this.setState({
-      showSearchItemModal: true,
-      item: data,
-      itemType,
-      notificationId
-    });
   };
 
-  handleSave = async id => {
+  handleSave = async () => {
     this.props.onClickDismissNotification(this.state.notificationId);
     this.setState({
       showSearchItemModal: false,
@@ -104,7 +117,8 @@ export class ListNotificationsModal extends PureComponent {
                       ? this.handleSelectItem(
                           notification.externalId,
                           notification.type,
-                          notification.id
+                          notification.id,
+                          notification.listId
                         )
                       : null
                   }
@@ -157,5 +171,6 @@ export class ListNotificationsModal extends PureComponent {
 
 export default compose(
   withApollo,
+  withRouter,
   injectIntl
 )(ListNotificationsModal);

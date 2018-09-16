@@ -20,7 +20,15 @@ export class ImportList extends PureComponent {
         variables: {
           listId: this.props.match.params.listId,
           userId: this.props.user.userId
-        }
+        },
+        refetchQueries: [
+          {
+            query: getLists,
+            variables: {
+              userId: this.props.user.userId
+            }
+          }
+        ]
       })
       .catch(err => {
         console.log(err);
@@ -29,6 +37,8 @@ export class ImportList extends PureComponent {
     if (res && res.data && res.data.importList) {
       this.props.history.push(`/lists/${res.data.importList.id}`);
     }
+
+    //TODO OPTIMISTIC RESPONSE
   };
 
   render() {

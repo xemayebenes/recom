@@ -3,12 +3,14 @@ mutation sendNotification(
   $title: String
   $externalId: Int
   $userEmail: String!
+  $listId: String
 ) {
   pushNotification(
     type: $type
     title: $title
     externalId: $externalId
     userEmail: $userEmail
+    listId: $listId
   ) {
     id
   }

@@ -6,6 +6,7 @@ mutation markNotification($id: String!) {
     type
     title
     externalId
+    listId
     from {
       id
       email

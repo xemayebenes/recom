@@ -9,8 +9,10 @@ import { Row, Col, Container, Button } from 'reactstrap';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import faFilm from '@fortawesome/fontawesome-free-solid/faFilm';
 import faTv from '@fortawesome/fontawesome-free-solid/faTv';
+import faShareAlt from '@fortawesome/fontawesome-free-solid/faShareAlt';
 
 import { ActionsPanel } from 'modules/items/components';
+import { SendNotificationModal } from 'modules/notifications';
 
 import getList from 'gql/getList.gql';
 import getLists from 'gql/getLists.gql';
@@ -22,6 +24,12 @@ import removeItemFromList from 'gql/removeItemFromList.gql';
 
 export class Movies extends PureComponent {
   static displayName = 'Movies';
+
+  state = {
+    showModal: false,
+    listId: undefined,
+    title: undefined
+  };
 
   goToItemDetail = (id, type) => {
     const route = `/item-detail/${type.toLowerCase()}/${id}`;
@@ -41,6 +49,17 @@ export class Movies extends PureComponent {
         }
       ]
     });
+  };
+
+  handleCloseModal = _ => {
+    this.setState({
+      showModal: false,
+      listId: undefined,
+      title: undefined
+    });
+  };
+  openShareModal = ({ id, name }) => {
+    this.setState({ showModal: true, title: name, listId: id });
   };
 
   render() {
@@ -74,6 +93,14 @@ export class Movies extends PureComponent {
                       <div>{data.list.description}</div>
                     )}
                   </div>
+                  <Button
+                    outline
+                    size="sm"
+                    color="secondary"
+                    onClick={() => this.openShareModal(data.list)}
+                  >
+                    <FontAwesomeIcon icon={faShareAlt} />
+                  </Button>
                   <Mutation
                     mutation={REMOVE_LIST}
                     onCompleted={() => this.props.history.push('/lists')}
@@ -142,6 +169,15 @@ export class Movies extends PureComponent {
             );
           }}
         </Query>
+        {this.state.showModal && (
+          <SendNotificationModal
+            externalId={null}
+            type={'List'}
+            title={this.state.title}
+            listId={this.state.listId}
+            handleCloseModal={this.handleCloseModal}
+          />
+        )}
       </Container>
     );
   }

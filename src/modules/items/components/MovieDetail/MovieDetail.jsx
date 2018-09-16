@@ -82,7 +82,6 @@ export class MovieDetail extends PureComponent {
     });
   };
   openShareModal = ({ externalId, film: { title } }) => {
-    console.log({ externalId, title });
     this.setState({ showModal: true, externalId, title });
   };
 

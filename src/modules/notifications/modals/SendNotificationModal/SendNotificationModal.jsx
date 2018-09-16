@@ -25,6 +25,7 @@ export class SendNotificationModal extends PureComponent {
         externalId: this.props.externalId,
         type: this.props.type,
         title: this.props.title,
+        listId: this.props.listId,
         userEmail: this.state.userEmail
       }
     });

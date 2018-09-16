@@ -6,6 +6,7 @@ subscription($userId: String!) {
     type
     title
     externalId
+    listId
     from {
       id
       email
