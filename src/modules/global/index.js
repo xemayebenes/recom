@@ -5,7 +5,8 @@ import {
   Series,
   UserLists,
   UserList,
-  ListForm
+  ListForm,
+  ImportList
 } from './views';
 
 export const routes = [
@@ -33,6 +34,11 @@ export const routes = [
   {
     path: '/lists/new',
     component: ListForm,
+    authenticatedRequired: true
+  },
+  {
+    path: '/lists/import/:listId',
+    component: ImportList,
     authenticatedRequired: true
   },
   {

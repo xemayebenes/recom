@@ -1,0 +1,5 @@
+mutation importList($listId: String!, $userId: String!) {
+  importList(listId: $listId, userId: $userId) {
+    id
+  }
+}
