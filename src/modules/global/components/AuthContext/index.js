@@ -1,5 +1,1 @@
-import React from 'react';
-
-export default React.createContext({
-  userId: null
-});
+export { default, AuthContextProvider } from './AuthContext';

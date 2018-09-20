@@ -106,7 +106,7 @@
     "build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
     "watch-css": "npm run build-css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive",
     "start-js": "node scripts/start.js",
-    "start": "npm-run-all -p watch-css start-js",
+    "start": "npm-run-all -p watch-css start-js translate",
     "build-js": "node scripts/build.js",
     "build": "sh -ac '. config/environments/.env.${REACT_APP_ENV:-production}; npm-run-all build-css build-js'",
     "build:staging": "REACT_APP_ENV=staging npm run build",

@@ -4,7 +4,11 @@ import { addLocaleData, IntlProvider } from 'react-intl';
 import { ApolloProvider } from 'react-apollo';
 
 import { Messages as messages, Locales as locales } from '../i18n';
-import { Authenticated, AuthContext } from 'modules/global/components';
+import {
+  Authenticated,
+  AuthContext,
+  AuthContextProvider
+} from 'modules/global/components';
 import { client } from '../ApolloClient';
 import { routes } from 'modules';
 import { getUserId } from 'utils/security';
@@ -18,7 +22,7 @@ const formatsDate = {
     day: 'numeric'
   }
 };
-const locale = 'es'; // Detect language
+const locale = 'en'; // Detect language
 
 const RouteWithSubRoutes = route => {
   if (route.authenticatedRequired) {
@@ -56,6 +60,7 @@ export default class App extends Component {
   componentWillMount() {}
 
   render() {
+    console.log('App getUserId', getUserId());
     return (
       <ApolloProvider client={client}>
         <IntlProvider
@@ -63,7 +68,7 @@ export default class App extends Component {
           messages={messages[locale]}
           formats={{ date: formatsDate }}
         >
-          <AuthContext.Provider value={{ userId: getUserId() }}>
+          <AuthContextProvider>
             <BrowserRouter>
               <Switch>
                 {/* Module Routes */}
@@ -79,7 +84,7 @@ export default class App extends Component {
                 }
               </Switch>
             </BrowserRouter>
-          </AuthContext.Provider>
+          </AuthContextProvider>
         </IntlProvider>
       </ApolloProvider>
     );

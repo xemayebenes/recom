@@ -1,5 +1,5 @@
 import {
-  Login,
+  Init,
   Home,
   Movies,
   Series,
@@ -17,8 +17,8 @@ export const routes = [
     authenticatedRequired: true
   },
   {
-    path: '/login',
-    component: Login,
+    path: '/init',
+    component: Init,
     authenticatedRequired: false
   },
   {

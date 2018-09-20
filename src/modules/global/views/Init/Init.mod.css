@@ -1,0 +1,23 @@
+/* csslint ignore:start */
+
+.left {
+  background-color: var(--prussian-blue);
+  color: white;
+}
+
+.right {
+  background-color: white;
+  color: var(--ivory-black);
+}
+
+.top,
+.down {
+  margin: 1.5rem !important;
+}
+
+.separator {
+  border-width: 2px;
+  border-color: var(--gold-leaf);
+  border-style: solid;
+  width: 100%;
+}

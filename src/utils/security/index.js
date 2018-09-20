@@ -5,5 +5,6 @@ export {
   getAuthHeader,
   setToken,
   getToken,
-  getUserId
+  getUserId,
+  register
 } from './security';

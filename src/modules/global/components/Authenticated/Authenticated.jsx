@@ -31,7 +31,7 @@ export class Authenticated extends PureComponent {
     ) : (
       <Redirect
         to={{
-          pathname: '/login',
+          pathname: '/init',
           search: `?${generateQueryRedirect(this.props.location.pathname)}`
         }}
       />

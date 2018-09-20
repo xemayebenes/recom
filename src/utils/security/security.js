@@ -41,8 +41,34 @@ export const login = params => {
     },
     body: JSON.stringify(params)
   })
-    .then(response => response.json())
+    .then(checkResponse)
     .then(response => {
+      setToken(response.jwt);
+      return Promise.resolve();
+    });
+};
+
+export const checkResponse = async response => {
+  if (response.status >= 200 && response.status < 300) {
+    return response.json();
+  } else {
+    const error = await response.json();
+    return Promise.reject(error);
+  }
+};
+
+export const register = params => {
+  return fetch(`${baseApiUrl}/register`, {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(params)
+  })
+    .then(checkResponse)
+    .then(response => {
+      console.log(response);
       setToken(response.jwt);
       return Promise.resolve();
     });
@@ -81,7 +107,7 @@ export const getAuthHeader = headers => {
 
 export const getUserId = () => {
   const encodedToken = getToken();
-
+  console.log('getUserId', encodedToken);
   if (encodedToken) {
     const token = decode(encodedToken);
     return token.userId || null;
