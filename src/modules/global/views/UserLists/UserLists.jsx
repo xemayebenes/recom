@@ -53,41 +53,49 @@ export class UserLists extends PureComponent {
 
               return (
                 <Fragment>
-                  <Row className="flex-wrap flex-row justify-content-start d-flex">
+                  <div className="flex-wrap flex-row justify-content-start d-flex">
                     {data.lists.map(list => (
-                      <div
+                      <Col
+                        xs="12"
+                        md="6"
+                        lg="3"
                         key={list.id}
-                        className="m-3 shadow flex-wrap flex-column d-flex align-items-start"
                         onClick={() => this.goToListDetail(list.id)}
                       >
-                        <div>
-                          {list.type === 'Movie' && (
-                            <FontAwesomeIcon icon={faFilm} />
-                          )}
-                          {list.type === 'Serie' && (
-                            <FontAwesomeIcon icon={faTv} />
-                          )}
-                          {'   '}
-                          {list.name}
-                        </div>
-                        <div className="m-3 flex-wrap flex-row justify-content-between d-flex">
-                          {list.items.slice(0, 4).map(item => (
-                            <div key={item.id}>
+                        <div className="shadow p-2 d-flex flex-column h-100 justify-content-between">
+                          <div className="text-center">{list.name}</div>
+
+                          <div className="flex-wrap flex-row text-center">
+                            {list.items.slice(0, 4).map(item => (
                               <img
-                                src={item.images.small.main}
+                                key={item.id}
+                                src={item.images.medium.main}
                                 alt="main"
+                                className={classnames({
+                                  [styles.image4]: list.items.length >= 3,
+                                  [styles.image2]: list.items.length === 2,
+                                  [styles.image1]: list.items.length === 1
+                                })}
                                 onClick={event => {
                                   event.stopPropagation();
 
                                   this.goToItemDetail(item.id, list.type);
                                 }}
                               />
-                            </div>
-                          ))}
+                            ))}
+                          </div>
+                          <div className="align-self-end">
+                            {list.type === 'Movie' && (
+                              <FontAwesomeIcon icon={faFilm} />
+                            )}
+                            {list.type === 'Serie' && (
+                              <FontAwesomeIcon icon={faTv} />
+                            )}
+                          </div>
                         </div>
-                      </div>
+                      </Col>
                     ))}
-                  </Row>
+                  </div>
                 </Fragment>
               );
             }}

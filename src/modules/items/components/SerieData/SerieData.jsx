@@ -25,7 +25,8 @@ const SerieData = ({
   completed,
   onClickDeleteButton,
   onClickCompleteButton,
-  onClickShare
+  onClickShare,
+  search = false
 }) => (
   <React.Fragment>
     <div
@@ -38,23 +39,30 @@ const SerieData = ({
       <div className={styles.title}>{title}</div>
     </div>
     <Container>
-      <div className="p-2 float-right">
-        <Button outline size="sm" color="primary" onClick={onClickDeleteButton}>
-          <FontAwesomeIcon icon={faTrashAlt} />
-        </Button>
-        <Button
-          disabled={completed}
-          outline
-          size="sm"
-          color="secondary"
-          onClick={onClickCompleteButton}
-        >
-          <FontAwesomeIcon icon={faCheckCircle} />
-        </Button>
-        <Button outline size="sm" color="secondary" onClick={onClickShare}>
-          <FontAwesomeIcon icon={faShareAlt} />
-        </Button>
-      </div>
+      {search === false && (
+        <div className="p-2 float-right">
+          <Button
+            outline
+            size="sm"
+            color="primary"
+            onClick={onClickDeleteButton}
+          >
+            <FontAwesomeIcon icon={faTrashAlt} />
+          </Button>
+          <Button
+            disabled={completed}
+            outline
+            size="sm"
+            color="secondary"
+            onClick={onClickCompleteButton}
+          >
+            <FontAwesomeIcon icon={faCheckCircle} />
+          </Button>
+          <Button outline size="sm" color="secondary" onClick={onClickShare}>
+            <FontAwesomeIcon icon={faShareAlt} />
+          </Button>
+        </div>
+      )}
       <div className="p-2 d-flex flex-row flex-wrap justify-content-start">
         {genres &&
           genres.map(genre => (

@@ -77,8 +77,8 @@ export class SearchItemModal extends PureComponent {
     return (
       <Modal isOpen={true}>
         <ModalBody>
-          {itemType === MOVIE && <MovieData {...item} />}
-          {itemType === SERIE && <SerieData {...item} />}
+          {itemType === MOVIE && <MovieData {...item} search={true} />}
+          {itemType === SERIE && <SerieData {...item} search={true} />}
         </ModalBody>
         <ModalFooter>
           <ListSelect

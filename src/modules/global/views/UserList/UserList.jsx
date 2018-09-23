@@ -11,8 +11,9 @@ import faFilm from '@fortawesome/fontawesome-free-solid/faFilm';
 import faTv from '@fortawesome/fontawesome-free-solid/faTv';
 import faShareAlt from '@fortawesome/fontawesome-free-solid/faShareAlt';
 
-import { ActionsPanel } from 'modules/items/components';
+import { ListItem } from 'modules/items/components';
 import { SendNotificationModal } from 'modules/notifications';
+import { ContainerTemplate } from 'modules/global/components';
 
 import getList from 'gql/lists/getList.gql';
 import getLists from 'gql/lists/getLists.gql';
@@ -22,6 +23,7 @@ import removeItemFromList from 'gql/lists/removeItemFromList.gql';
 //
 // import getUserLastItems from 'gql/lastItems/getUserLastItems.gql';
 
+import styles from './UserList.mod.css';
 export class Movies extends PureComponent {
   static displayName = 'Movies';
 
@@ -64,7 +66,7 @@ export class Movies extends PureComponent {
 
   render() {
     return (
-      <Container>
+      <div className={styles.container}>
         <Query
           variables={{
             userId: this.props.user.userId,
@@ -77,95 +79,79 @@ export class Movies extends PureComponent {
             if (error) return <p>Error :(</p>;
 
             return (
-              <Fragment>
-                <Row>
-                  <div>
-                    {data.list.type === 'Movie' && (
-                      <FontAwesomeIcon icon={faFilm} />
-                    )}
-                    {data.list.type === 'Serie' && (
-                      <FontAwesomeIcon icon={faTv} />
-                    )}
-                    {'   '}
-                    {data.list.name}
-                    {'   '}
+              <ContainerTemplate title={<div>{data.list.name}</div>}>
+                <Row className="my-2">
+                  <Col xs="12" md="10">
                     {data.list.description && (
                       <div>{data.list.description}</div>
                     )}
-                  </div>
-                  <Button
-                    outline
-                    size="sm"
-                    color="secondary"
-                    onClick={() => this.openShareModal(data.list)}
-                  >
-                    <FontAwesomeIcon icon={faShareAlt} />
-                  </Button>
-                  <Mutation
-                    mutation={REMOVE_LIST}
-                    onCompleted={() => this.props.history.push('/lists')}
-                  >
-                    {(removelist, { loading, error }) => (
-                      <Button
-                        color="secondary"
-                        onClick={async () => {
-                          await removelist({
-                            variables: {
-                              listId: data.list.id
-                            },
-                            update: (proxy, { data }) => {
-                              const cache = proxy.readQuery({
-                                query: getLists,
-                                variables: {
-                                  userId: this.props.user.userId
-                                }
-                              });
-                              proxy.writeQuery({
-                                query: getLists,
-                                variables: {
-                                  userId: this.props.user.userId
-                                },
-                                data: {
-                                  lists: cache.lists.filter(
-                                    list => list.id !== data.removeList
-                                  )
-                                }
-                              });
-                            }
-                          });
-                        }}
-                      >
-                        Remove
-                      </Button>
-                    )}
-                  </Mutation>
+                  </Col>
+                  <Col xs="12" md="1">
+                    <Button
+                      color="primary"
+                      onClick={() => this.openShareModal(data.list)}
+                    >
+                      Share
+                    </Button>
+                  </Col>
+                  <Col xs="12" md="1">
+                    <Mutation
+                      mutation={REMOVE_LIST}
+                      onCompleted={() => this.props.history.push('/lists')}
+                    >
+                      {(removelist, { loading, error }) => (
+                        <Button
+                          color="primary"
+                          onClick={async () => {
+                            await removelist({
+                              variables: {
+                                listId: data.list.id
+                              },
+                              update: (proxy, { data }) => {
+                                const cache = proxy.readQuery({
+                                  query: getLists,
+                                  variables: {
+                                    userId: this.props.user.userId
+                                  }
+                                });
+                                proxy.writeQuery({
+                                  query: getLists,
+                                  variables: {
+                                    userId: this.props.user.userId
+                                  },
+                                  data: {
+                                    lists: cache.lists.filter(
+                                      list => list.id !== data.removeList
+                                    )
+                                  }
+                                });
+                              }
+                            });
+                          }}
+                        >
+                          Remove
+                        </Button>
+                      )}
+                    </Mutation>
+                  </Col>
                 </Row>
-                <Row>
+
+                <div className="flex-wrap flex-row justify-content-start d-flex">
                   {data.list.items.map(item => (
-                    <Col xs="12" md="6" lg="4" key={item.id}>
-                      <Row>
-                        <ActionsPanel
-                          onClickRemoveFromList={() =>
-                            this.handleRemoveItemFromList(item.id)
-                          }
-                        />
-                      </Row>
-                      <Row>{item.title} </Row>
-                      <Row
-                        onClick={event =>
-                          this.goToItemDetail(item.id, data.list.type)
-                        }
-                      >
-                        <img
-                          src={item.images.medium.main}
-                          alt="main"
-                          className="img-fluid p-2"
-                        />
-                      </Row>
-                    </Col>
+                    <ListItem
+                      key={item.id}
+                      images={item.images}
+                      title={item.title}
+                      onClickItem={() =>
+                        this.goToItemDetail(item.id, data.list.type)
+                      }
+                      onClickRemoveFromList={() =>
+                        this.handleRemoveItemFromList(item.id)
+                      }
+                    />
                   ))}
-                </Row>
-              </Fragment>
+                </div>
+              </ContainerTemplate>
             );
           }}
         </Query>
@@ -178,7 +164,7 @@ export class Movies extends PureComponent {
             handleCloseModal={this.handleCloseModal}
           />
         )}
-      </Container>
+      </div>
     );
   }
 }
