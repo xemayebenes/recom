@@ -112,7 +112,9 @@ export class SerieDetail extends PureComponent {
 
             return (
               <React.Fragment>
-                <ActionsPanel
+                <SerieData
+                  {...serie}
+                  completed={data.getUserSerie.completed}
                   onClickDeleteButton={() =>
                     this.handleDeleteItem(data.getUserSerie.id)
                   }
@@ -120,9 +122,7 @@ export class SerieDetail extends PureComponent {
                     this.handleCompleteMovie(data.getUserSerie.id)
                   }
                   onClickShare={() => this.openShareModal(data.getUserSerie)}
-                  completed={data.getUserSerie.completed}
                 />
-                <SerieData {...serie} completed={data.getUserSerie.completed} />
               </React.Fragment>
             );
           }}

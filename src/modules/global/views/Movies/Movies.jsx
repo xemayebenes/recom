@@ -4,8 +4,9 @@ import { injectIntl } from 'react-intl';
 import { Query, compose, withApollo } from 'react-apollo';
 import { withRouter } from 'react-router';
 
-import { Row, Col, Container } from 'reactstrap';
-import { ActionsPanel } from 'modules/items/components';
+import { Row } from 'reactstrap';
+import { ListItem } from 'modules/items/components';
+import { ContainerTemplate } from 'modules/global/components';
 
 import getUserMovies from 'gql/movies/getUserMovies.gql';
 import removeMovie from 'gql/movies/removeMovie.gql';
@@ -72,47 +73,41 @@ export class Movies extends PureComponent {
 
   render() {
     return (
-      <Container>
-        <Query
-          variables={{ userId: this.props.user.userId }}
-          query={getUserMovies}
-        >
-          {({ loading, error, data }) => {
-            if (loading) return <p>Loading...</p>;
-            if (error) return <p>Error :(</p>;
+      <ContainerTemplate title={<div>MOVIES</div>}>
+        <Row>
+          <Query
+            variables={{ userId: this.props.user.userId }}
+            query={getUserMovies}
+          >
+            {({ loading, error, data }) => {
+              if (loading) return <p>Loading...</p>;
+              if (error) return <p>Error :(</p>;
 
-            return (
-              <Fragment>
-                <Row>
-                  {data.getUserMovies.map(movie => (
-                    <Col xs="12" md="6" lg="4" key={movie.id}>
-                      <Row>
-                        <ActionsPanel
-                          onClickDeleteButton={() =>
-                            this.handleDeleteItem(movie.id)
-                          }
-                          onClickCompleteButton={() =>
-                            this.handleCompleteMovie(movie.id)
-                          }
-                          completed={movie.completed}
-                        />
-                      </Row>
-                      <Row>{movie.film.title} </Row>
-                      <Row onClick={() => this.goToItemDetail(movie.id)}>
-                        <img
-                          src={movie.film.images.medium.main}
-                          alt="main"
-                          className="img-fluid p-2"
-                        />
-                      </Row>
-                    </Col>
-                  ))}
-                </Row>
-              </Fragment>
-            );
-          }}
-        </Query>
-      </Container>
+              return (
+                <Fragment>
+                  <div className="flex-wrap flex-row justify-content-start d-flex">
+                    {data.getUserMovies.map(movie => (
+                      <ListItem
+                        key={movie.id}
+                        images={movie.film.images}
+                        title={movie.film.title}
+                        completed={movie.completed}
+                        onClickItem={() => this.goToItemDetail(movie.id)}
+                        onClickDeleteButton={() =>
+                          this.handleDeleteItem(movie.id)
+                        }
+                        onClickCompleteButton={() =>
+                          this.handleCompleteMovie(movie.id)
+                        }
+                      />
+                    ))}
+                  </div>
+                </Fragment>
+              );
+            }}
+          </Query>
+        </Row>
+      </ContainerTemplate>
     );
   }
 }

@@ -10,10 +10,14 @@ import styles from './MenuItem.mod.css';
 
 const MenuItem = props => (
   <div
-    className={classnames(props.className, styles.menuItem)}
+    className={classnames(props.className, styles.menuItem, {
+      [styles.selected]:
+        props.location.pathname.indexOf(props.route.substring(1)) > 0
+    })}
     onClick={() => props.history.push(props.route)}
   >
     <FontAwesomeIcon icon={props.icon} />
+    <span className="pl-1 d-none d-md-block"> {props.label} </span>
   </div>
 );
 

@@ -43,6 +43,10 @@ html,
   font-family: 'Oswald', sans-serif;
 }
 
+#root {
+  display: flex;
+  flex-direction: column;
+}
 body {
   height: 100%;
   margin: 0;

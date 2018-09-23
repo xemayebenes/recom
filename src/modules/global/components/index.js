@@ -7,3 +7,4 @@ export { default as Notifications } from './Notifications';
 export { default as MenuItem } from './MenuItem';
 export { default as AuthContext, AuthContextProvider } from './AuthContext';
 export { default as ListSelect } from './ListSelect';
+export { default as ContainerTemplate } from './ContainerTemplate';

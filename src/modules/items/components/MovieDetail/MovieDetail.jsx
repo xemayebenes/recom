@@ -11,7 +11,6 @@ import getUserLastItems from 'gql/lastItems/getUserLastItems.gql';
 
 import { MovieData, ActionsPanel } from 'modules/items/components';
 import { SendNotificationModal } from 'modules/notifications';
-
 export class MovieDetail extends PureComponent {
   static displayName = 'MovieDetail';
 
@@ -109,7 +108,9 @@ export class MovieDetail extends PureComponent {
 
             return (
               <Fragment>
-                <ActionsPanel
+                <MovieData
+                  {...film}
+                  completed={data.getUserMovie.completed}
                   onClickDeleteButton={() =>
                     this.handleDeleteItem(data.getUserMovie.id)
                   }
@@ -117,9 +118,7 @@ export class MovieDetail extends PureComponent {
                     this.handleCompleteMovie(data.getUserMovie.id)
                   }
                   onClickShare={() => this.openShareModal(data.getUserMovie)}
-                  completed={data.getUserMovie.completed}
                 />
-                <MovieData {...film} completed={data.getUserMovie.completed} />
               </Fragment>
             );
           }}

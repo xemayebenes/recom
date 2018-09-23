@@ -6,7 +6,7 @@ import { compose, setDisplayName, withProps } from 'recompose';
 import { loggedIn } from 'utils/security';
 
 import { Header } from 'modules/global/components';
-
+import styles from './Authenticated.mod.css';
 const generateQueryRedirect = pathname => {
   return querystring.stringify({
     ...(pathname === '/' ? {} : { redirectTo: pathname })
@@ -26,7 +26,7 @@ export class Authenticated extends PureComponent {
     return this.props.loggedIn ? (
       <React.Fragment>
         <Header />
-        <div>{this.props.children}</div>
+        <div className={styles.page}>{this.props.children}</div>
       </React.Fragment>
     ) : (
       <Redirect

@@ -6,7 +6,7 @@ import { Container } from 'reactstrap';
 import { withRouter } from 'react-router';
 
 import { MovieDetail, SerieDetail } from 'modules/items/components';
-
+import styles from './ItemDetail.mod.css';
 export class ItemDetail extends PureComponent {
   static displayName = 'ItemDetail';
 
@@ -28,13 +28,13 @@ export class ItemDetail extends PureComponent {
     } = this.props;
 
     return (
-      <Container>
+      <div className={styles.container}>
         {type === 'movie' ? (
           <MovieDetail id={itemId} userId={user.userId} />
         ) : (
           <SerieDetail id={itemId} userId={user.userId} />
         )}
-      </Container>
+      </div>
     );
   }
 }

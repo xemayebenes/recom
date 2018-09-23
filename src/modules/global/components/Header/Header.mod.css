@@ -1,3 +1,5 @@
+/* csslint ignore:start */
+
 .header {
   border-bottom: solid 1px black;
   height: 100px;
@@ -8,7 +10,15 @@
 }
 
 .menu {
-  background-color: black;
-  color: white;
+  background-color: white;
+  color: var(--prussian-blue);
+  border-bottom: solid 2px var(--prussian-blue);
+  border-top: solid 2px var(--prussian-blue);
+  height: 50px;
+}
+.searchBarContainer {
+  background-color: var(--gold-leaf);
+  color: var(--prussian-blue);
+  border-bottom: solid 2px var(--prussian-blue);
   height: 50px;
 }

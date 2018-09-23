@@ -1,3 +1,11 @@
 {
-  "Global.Components.RegisterForm.user": "User"
+  "Global.Components.RegisterForm.email": "Email",
+  "Global.Components.RegisterForm.emailInUse": "The email is already in use",
+  "Global.Components.RegisterForm.notMatch": "The passwords do not match",
+  "Global.Components.RegisterForm.password": "Password",
+  "Global.Components.RegisterForm.register": "Register",
+  "Global.Components.RegisterForm.repeatPassword": "Repeat password",
+  "Global.Components.RegisterForm.required": "Required field",
+  "Global.Components.RegisterForm.user": "User",
+  "Global.Components.RegisterForm.userInUse": "The user name is already in use"
 }

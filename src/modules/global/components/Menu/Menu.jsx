@@ -11,10 +11,10 @@ import styles from './Menu.mod.css';
 
 const Menu = props => (
   <div className={classnames(styles.menu)}>
-    <MenuItem route={'/'} icon={faHome} className="ml-5" />
-    <MenuItem route={'/movies'} icon={faFilm} />
-    <MenuItem route={'/series'} icon={faTv} />
-    <MenuItem route={'/lists'} icon={faList} />
+    <MenuItem route={'/'} icon={faHome} label={'HOME'} className="ml-5" />
+    <MenuItem route={'/movies'} icon={faFilm} label={'MOVIES'} />
+    <MenuItem route={'/series'} icon={faTv} label={'SERIES'} />
+    <MenuItem route={'/lists'} icon={faList} label={'LISTS'} />
   </div>
 );
 

@@ -4,8 +4,9 @@ import { injectIntl } from 'react-intl';
 import { Query, compose, withApollo } from 'react-apollo';
 import { withRouter } from 'react-router';
 
-import { Row, Col, Container } from 'reactstrap';
-import { ActionsPanel } from 'modules/items/components';
+import { Row } from 'reactstrap';
+import { ListItem } from 'modules/items/components';
+import { ContainerTemplate } from 'modules/global/components';
 
 import getUserSeries from 'gql/series/getUserSeries.gql';
 import removeSerie from 'gql/series/removeSerie.gql';
@@ -72,47 +73,41 @@ export class Series extends PureComponent {
 
   render() {
     return (
-      <Container>
-        <Query
-          variables={{ userId: this.props.user.userId }}
-          query={getUserSeries}
-        >
-          {({ loading, error, data }) => {
-            if (loading) return <p>Loading...</p>;
-            if (error) return <p>Error :(</p>;
+      <ContainerTemplate title={<div>SERIES</div>}>
+        <Row>
+          <Query
+            variables={{ userId: this.props.user.userId }}
+            query={getUserSeries}
+          >
+            {({ loading, error, data }) => {
+              if (loading) return <p>Loading...</p>;
+              if (error) return <p>Error :(</p>;
 
-            return (
-              <Fragment>
-                <Row>
-                  {data.getUserSeries.map(serie => (
-                    <Col xs="12" md="6" lg="4" key={serie.id}>
-                      <Row>
-                        <ActionsPanel
-                          onClickDeleteButton={() =>
-                            this.handleDeleteItem(serie.id)
-                          }
-                          onClickCompleteButton={() =>
-                            this.handleCompleteMovie(serie.id)
-                          }
-                          completed={serie.completed}
-                        />
-                      </Row>
-                      <Row>{serie.serie.title} </Row>
-                      <Row onClick={() => this.goToItemDetail(serie.id)}>
-                        <img
-                          src={serie.serie.images.medium.main}
-                          alt="main"
-                          className="img-fluid p-2"
-                        />
-                      </Row>
-                    </Col>
-                  ))}
-                </Row>
-              </Fragment>
-            );
-          }}
-        </Query>
-      </Container>
+              return (
+                <Fragment>
+                  <div className="flex-wrap flex-row justify-content-start d-flex">
+                    {data.getUserSeries.map(serie => (
+                      <ListItem
+                        key={serie.id}
+                        images={serie.serie.images}
+                        title={serie.serie.title}
+                        completed={serie.completed}
+                        onClickItem={() => this.goToItemDetail(serie.id)}
+                        onClickDeleteButton={() =>
+                          this.handleDeleteItem(serie.id)
+                        }
+                        onClickCompleteButton={() =>
+                          this.handleCompleteMovie(serie.id)
+                        }
+                      />
+                    ))}
+                  </div>
+                </Fragment>
+              );
+            }}
+          </Query>
+        </Row>
+      </ContainerTemplate>
     );
   }
 }
