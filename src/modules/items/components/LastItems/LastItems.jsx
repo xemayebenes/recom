@@ -2,30 +2,41 @@ import React, { PureComponent, Fragment } from 'react';
 import { injectIntl } from 'react-intl';
 
 import { Query } from 'react-apollo';
-
+import classnames from 'classnames';
 import { LastItem } from 'modules/items/components';
+import { Loader } from 'modules/global/components';
 import getUserLastItems from 'gql/lastItems/getUserLastItems.gql';
+
+import styles from './LastItems.mod.css';
 
 export class LastItems extends PureComponent {
   static displayName = 'LastItems';
 
   render() {
     return (
-      <Fragment>
-        <Query
-          variables={{ userId: this.props.userId }}
-          query={getUserLastItems}
+      <div className={styles.container}>
+        <div
+          className={classnames(
+            styles['scrolling-wrapper-flexbox'],
+            'flex-column',
+            'flex-md-row'
+          )}
         >
-          {({ loading, error, data }) => {
-            if (loading) return <p>Loading...</p>;
-            if (error) return <p>Error :(</p>;
-
-            return data.getUserLastItems.map(item => (
-              <LastItem key={item.item.id} {...item} />
-            ));
-          }}
-        </Query>
-      </Fragment>
+          <Query
+            variables={{ userId: this.props.userId }}
+            query={getUserLastItems}
+          >
+            {({ loading, error, data }) => {
+              if (loading) return <Loader />;
+              if (error) return <p>Error :(</p>;
+              console.log(data);
+              return data.getUserLastItems.map(item => (
+                <LastItem key={item.item.id} {...item} />
+              ));
+            }}
+          </Query>
+        </div>
+      </div>
     );
   }
 }

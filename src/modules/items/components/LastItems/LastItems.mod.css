@@ -1,0 +1,14 @@
+.scrolling-wrapper-flexbox {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.container {
+  height: 100%;
+  display: flex;
+}

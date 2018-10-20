@@ -99,8 +99,13 @@ export class SearchBar extends PureComponent {
     } = this.state;
     return (
       <Fragment>
-        <Container
-          className={classnames('position-absolute', styles.searchContainer)}
+        <div
+          className={classnames(
+            styles.searchContainer,
+            'mt-1',
+            'order-3',
+            'order-md-2'
+          )}
         >
           <div className="d-flex">
             <Input
@@ -169,7 +174,7 @@ export class SearchBar extends PureComponent {
               )}
             </Container>
           )}
-        </Container>
+        </div>
         {showModal && (
           <SearchItemModal
             item={item}

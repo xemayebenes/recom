@@ -1,24 +1,36 @@
 /* csslint ignore:start */
 
-.header {
-  border-bottom: solid 1px black;
-  height: 100px;
-}
-
-.title {
-  float: right;
-}
-
 .menu {
   background-color: white;
   color: var(--prussian-blue);
   border-bottom: solid 2px var(--prussian-blue);
   border-top: solid 2px var(--prussian-blue);
-  height: 50px;
 }
 .searchBarContainer {
   background-color: var(--gold-leaf);
   color: var(--prussian-blue);
   border-bottom: solid 2px var(--prussian-blue);
   height: 50px;
+}
+
+/* // Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) {
+  .menu {
+    height: 120px;
+  }
+}
+
+/* // Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+  .menu {
+    height: 50px;
+  }
+}
+
+/* // Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+}
+
+/* // Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
-
+import { FormattedDate } from 'react-intl';
 import classnames from 'classnames';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import faFilm from '@fortawesome/fontawesome-free-solid/faFilm';
@@ -20,7 +20,7 @@ export class LastItem extends React.PureComponent {
       title: PropTypes.string.isRequired,
       overview: PropTypes.string,
       images: PropTypes.shape({
-        large: PropTypes.shape({
+        medium: PropTypes.shape({
           main: PropTypes.string.isRequired
         })
       })
@@ -33,38 +33,26 @@ export class LastItem extends React.PureComponent {
     );
 
   render() {
-    const { type, item } = this.props;
+    const { type, item, date } = this.props;
     return (
-      <div onClick={this.goToItemDetail} className={styles.lastItem}>
-        <div className={styles.lastItemDecorator}>
-          <div>
-            {type === 'Movie' && <FontAwesomeIcon icon={faFilm} />}
-            {type === 'Serie' && <FontAwesomeIcon icon={faTv} />}
+      <div onClick={this.goToItemDetail} className={styles.card}>
+        <img
+          src={item.images.medium.main}
+          alt="main"
+          className={styles.image}
+        />
+        <div className={styles.cardBottom}>
+          <div className="ml-2">{item.title}</div>
+          <div className="d-flex justify-content-end">
+            <div className="mr-2">
+              {type === 'Movie' && <FontAwesomeIcon icon={faFilm} />}
+              {type === 'Serie' && <FontAwesomeIcon icon={faTv} />}
+            </div>
+            <div className="mr-2">
+              <FormattedDate value={new Date(date)} />
+            </div>
           </div>
         </div>
-        <div className={styles.posterWrap}>
-          <img
-            src={item.images.large.main}
-            alt="main"
-            className={styles.poster}
-          />
-          <span className="float-right mr-5">{item.title} </span>
-        </div>
-        {
-          // <div
-          //   className={classnames(
-          //     styles.title,
-          //     'd-flex',
-          //     'justify-content-between',
-          //     'align-items-center',
-          //     'px-5',
-          //   )}
-          // >
-          //   {type === 'Movie' && <FontAwesomeIcon icon={faFilm} />}
-          //   {type === 'Serie' && <FontAwesomeIcon icon={faTv} />}
-          //   <span>{item.title} </span>
-          // </div>
-        }
       </div>
     );
   }

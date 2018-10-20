@@ -8,7 +8,7 @@ import { Row, Col, Container, Button } from 'reactstrap';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import faFilm from '@fortawesome/fontawesome-free-solid/faFilm';
 import faTv from '@fortawesome/fontawesome-free-solid/faTv';
-import { ContainerTemplate } from 'modules/global/components';
+import { ContainerTemplate, Loader } from 'modules/global/components';
 import getLists from 'gql/lists/getLists.gql';
 
 import styles from './UserLists.mod.css';
@@ -32,12 +32,13 @@ export class UserLists extends PureComponent {
     return (
       <ContainerTemplate title={<div>YOUR LISTS</div>}>
         <Row>
-          <Col
-            xs={{ size: 1, offset: 9 }}
-            md={{ size: 1, offset: 11 }}
-            className="my-2"
-          >
-            <Button size="sm" color="primary" onClick={this.goToNewListForm}>
+          <Col className="my-2">
+            <Button
+              size="sm"
+              color="primary"
+              onClick={this.goToNewListForm}
+              className="float-right"
+            >
               New List
             </Button>
           </Col>
@@ -48,12 +49,12 @@ export class UserLists extends PureComponent {
             query={getLists}
           >
             {({ loading, error, data }) => {
-              if (loading) return <p>Loading...</p>;
+              if (loading) return <Loader />;
               if (error) return <p>Error :(</p>;
 
               return (
                 <Fragment>
-                  <div className="flex-wrap flex-row justify-content-start d-flex">
+                  <div className="flex-wrap flex-row justify-content-start d-flex w-100">
                     {data.lists.map(list => (
                       <Col
                         xs="12"

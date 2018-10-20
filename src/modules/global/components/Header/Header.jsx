@@ -16,18 +16,23 @@ const Header = props => (
           className={classnames(
             'd-flex',
             'justify-content-between',
+            'flex-column',
+            'flex-md-row',
             styles.menu
           )}
         >
           <Menu />
+          <SearchBar userId={authUser.userId} />
+
           <Notifications userId={authUser.userId} />
         </div>
-
-        <div className={classnames('pt-1', styles.searchBarContainer)}>
-          <Col xs={{ size: 8, offset: 3 }}>
-            <SearchBar userId={authUser.userId} />
-          </Col>
-        </div>
+        {
+          // <div className={classnames('pt-1', styles.searchBarContainer)}>
+          //   <Col xs={{ size: 8, offset: 3 }}>
+          //     <SearchBar userId={authUser.userId} />
+          //   </Col>
+          // </div>
+        }
       </Fragment>
     )}
   </AuthContext.Consumer>

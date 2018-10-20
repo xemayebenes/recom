@@ -77,7 +77,15 @@ class Notifications extends React.PureComponent {
     return (
       <Fragment>
         <div
-          className={classnames('mr-5', styles.notifications)}
+          className={classnames(
+            'ml-4',
+            'mr-4',
+            styles.notifications,
+            'justify-content-end',
+            'justify-content-md-start',
+            'order-2',
+            'order-md-3'
+          )}
           onClick={this.openShareModal}
         >
           <FontAwesomeIcon icon={faBell} />

@@ -56,3 +56,6 @@ body {
   font-weight: 400;
   background-color: var(--background-color);
 }
+::-webkit-scrollbar {
+  display: none;
+}

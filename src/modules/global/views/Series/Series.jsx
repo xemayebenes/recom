@@ -6,7 +6,7 @@ import { withRouter } from 'react-router';
 
 import { Row } from 'reactstrap';
 import { ListItem } from 'modules/items/components';
-import { ContainerTemplate } from 'modules/global/components';
+import { ContainerTemplate, Loader } from 'modules/global/components';
 
 import getUserSeries from 'gql/series/getUserSeries.gql';
 import removeSerie from 'gql/series/removeSerie.gql';
@@ -80,12 +80,12 @@ export class Series extends PureComponent {
             query={getUserSeries}
           >
             {({ loading, error, data }) => {
-              if (loading) return <p>Loading...</p>;
+              if (loading) return <Loader />;
               if (error) return <p>Error :(</p>;
 
               return (
                 <Fragment>
-                  <div className="flex-wrap flex-row justify-content-start d-flex">
+                  <div className="flex-wrap flex-row justify-content-start d-flex w-100">
                     {data.getUserSeries.map(serie => (
                       <ListItem
                         key={serie.id}

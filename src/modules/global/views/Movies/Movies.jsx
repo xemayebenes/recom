@@ -6,7 +6,7 @@ import { withRouter } from 'react-router';
 
 import { Row } from 'reactstrap';
 import { ListItem } from 'modules/items/components';
-import { ContainerTemplate } from 'modules/global/components';
+import { ContainerTemplate, Loader } from 'modules/global/components';
 
 import getUserMovies from 'gql/movies/getUserMovies.gql';
 import removeMovie from 'gql/movies/removeMovie.gql';
@@ -80,12 +80,12 @@ export class Movies extends PureComponent {
             query={getUserMovies}
           >
             {({ loading, error, data }) => {
-              if (loading) return <p>Loading...</p>;
+              if (loading) return <Loader />;
               if (error) return <p>Error :(</p>;
 
               return (
                 <Fragment>
-                  <div className="flex-wrap flex-row justify-content-start d-flex">
+                  <div className="flex-wrap flex-row justify-content-start d-flex w-100">
                     {data.getUserMovies.map(movie => (
                       <ListItem
                         key={movie.id}

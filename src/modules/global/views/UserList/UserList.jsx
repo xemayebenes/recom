@@ -13,7 +13,7 @@ import faShareAlt from '@fortawesome/fontawesome-free-solid/faShareAlt';
 
 import { ListItem } from 'modules/items/components';
 import { SendNotificationModal } from 'modules/notifications';
-import { ContainerTemplate } from 'modules/global/components';
+import { ContainerTemplate, Loader } from 'modules/global/components';
 
 import getList from 'gql/lists/getList.gql';
 import getLists from 'gql/lists/getLists.gql';
@@ -75,33 +75,22 @@ export class Movies extends PureComponent {
           query={getList}
         >
           {({ loading, error, data }) => {
-            if (loading) return <p>Loading...</p>;
+            if (loading) return <Loader />;
             if (error) return <p>Error :(</p>;
 
             return (
               <ContainerTemplate title={<div>{data.list.name}</div>}>
                 <Row className="my-2">
-                  <Col xs="12" md="10">
-                    {data.list.description && (
-                      <div>{data.list.description}</div>
-                    )}
-                  </Col>
-                  <Col xs="12" md="1">
-                    <Button
-                      color="primary"
-                      onClick={() => this.openShareModal(data.list)}
-                    >
-                      Share
-                    </Button>
-                  </Col>
-                  <Col xs="12" md="1">
+                  <Col xs={{ size: 3, offset: 6 }} md={{ size: 1, offset: 10 }}>
                     <Mutation
                       mutation={REMOVE_LIST}
                       onCompleted={() => this.props.history.push('/lists')}
                     >
                       {(removelist, { loading, error }) => (
                         <Button
+                          size="sm"
                           color="primary"
+                          className="float-right"
                           onClick={async () => {
                             await removelist({
                               variables: {
@@ -134,23 +123,41 @@ export class Movies extends PureComponent {
                       )}
                     </Mutation>
                   </Col>
+                  <Col xs="3" md="1">
+                    <Button
+                      size="sm"
+                      color="primary"
+                      className="float-right"
+                      onClick={() => this.openShareModal(data.list)}
+                    >
+                      Share
+                    </Button>
+                  </Col>
                 </Row>
-
-                <div className="flex-wrap flex-row justify-content-start d-flex">
-                  {data.list.items.map(item => (
-                    <ListItem
-                      key={item.id}
-                      images={item.images}
-                      title={item.title}
-                      onClickItem={() =>
-                        this.goToItemDetail(item.id, data.list.type)
-                      }
-                      onClickRemoveFromList={() =>
-                        this.handleRemoveItemFromList(item.id)
-                      }
-                    />
-                  ))}
-                </div>
+                <Row>
+                  <Col>
+                    {data.list.description && (
+                      <div>{data.list.description}</div>
+                    )}
+                  </Col>
+                </Row>
+                <Row>
+                  <div className="flex-wrap flex-row justify-content-start d-flex w-100">
+                    {data.list.items.map(item => (
+                      <ListItem
+                        key={item.id}
+                        images={item.images}
+                        title={item.title}
+                        onClickItem={() =>
+                          this.goToItemDetail(item.id, data.list.type)
+                        }
+                        onClickRemoveFromList={() =>
+                          this.handleRemoveItemFromList(item.id)
+                        }
+                      />
+                    ))}
+                  </div>
+                </Row>
               </ContainerTemplate>
             );
           }}
