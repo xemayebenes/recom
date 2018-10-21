@@ -32,6 +32,9 @@
   .cardBottom {
     transform: translateY(-40px);
   }
+  .image {
+    min-height: 750px;
+  }
 }
 
 /* // Large devices (desktops, 992px and up) */

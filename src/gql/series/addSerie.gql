@@ -4,6 +4,7 @@ mutation addSerie($externalId: Int!) {
     externalId
     completed
     serie {
+      externalId
       title
       overview
       genres {
@@ -25,6 +26,10 @@ mutation addSerie($externalId: Int!) {
           secondary
         }
         large {
+          main
+          secondary
+        }
+        small {
           main
           secondary
         }

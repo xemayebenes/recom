@@ -2,15 +2,7 @@ import React, { PureComponent, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl } from 'react-intl';
 import debounce from 'lodash.debounce';
-import {
-  Container,
-  Input,
-  TabContent,
-  TabPane,
-  Nav,
-  NavItem,
-  NavLink
-} from 'reactstrap';
+import { Input, TabContent, TabPane, Nav, NavItem, NavLink } from 'reactstrap';
 
 import classnames from 'classnames';
 import { compose, withApollo } from 'react-apollo';
@@ -44,6 +36,13 @@ export class SearchBar extends PureComponent {
         activeTab: tab
       });
     }
+  };
+
+  toggleSerie = () => {
+    this.toggle(SERIE);
+  };
+  toggleMovie = () => {
+    this.toggle(MOVIE);
   };
 
   search = async text => {
@@ -118,19 +117,17 @@ export class SearchBar extends PureComponent {
             />
           </div>
           {searchText && (
-            <Container className={classnames(styles.container)}>
+            <div className={classnames(styles.container)}>
               {((searchFilms && searchFilms.length > 0) ||
                 (searchSeries && searchSeries.length > 0)) && (
                 <Fragment>
-                  <Nav tabs>
+                  <Nav tabs className="mt-2">
                     <NavItem>
                       <NavLink
                         className={classnames({
                           active: this.state.activeTab === MOVIE
                         })}
-                        onClick={() => {
-                          this.toggle(MOVIE);
-                        }}
+                        onClick={this.toggleMovie}
                       >
                         Movies ({searchFilms.length})
                       </NavLink>
@@ -140,9 +137,7 @@ export class SearchBar extends PureComponent {
                         className={classnames({
                           active: this.state.activeTab === SERIE
                         })}
-                        onClick={() => {
-                          this.toggle(SERIE);
-                        }}
+                        onClick={this.toggleSerie}
                       >
                         Series ({searchSeries.length})
                       </NavLink>
@@ -172,7 +167,7 @@ export class SearchBar extends PureComponent {
                   </TabContent>
                 </Fragment>
               )}
-            </Container>
+            </div>
           )}
         </div>
         {showModal && (

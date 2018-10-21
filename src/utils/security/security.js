@@ -68,7 +68,6 @@ export const register = params => {
   })
     .then(checkResponse)
     .then(response => {
-      console.log(response);
       setToken(response.jwt);
       return Promise.resolve();
     });
@@ -107,7 +106,6 @@ export const getAuthHeader = headers => {
 
 export const getUserId = () => {
   const encodedToken = getToken();
-  console.log('getUserId', encodedToken);
   if (encodedToken) {
     const token = decode(encodedToken);
     return token.userId || null;

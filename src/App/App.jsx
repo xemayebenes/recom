@@ -60,7 +60,6 @@ export default class App extends Component {
   componentWillMount() {}
 
   render() {
-    console.log('App getUserId', getUserId());
     return (
       <ApolloProvider client={client}>
         <IntlProvider

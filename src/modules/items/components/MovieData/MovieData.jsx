@@ -203,15 +203,15 @@ MovieData.propTypes = {
   images: imageShape.isRequired,
   title: PropTypes.string.isRequired,
   overview: PropTypes.string.isRequired,
-  popularity: PropTypes.number.isRequired,
-  vote_average: PropTypes.number.isRequired,
+  popularity: PropTypes.number,
+  vote_average: PropTypes.number,
   omdbData: omdbDataShape,
   videoData: videoDataShape,
   genres: genreShape,
   completed: PropTypes.bool,
-  onClickDeleteButton: PropTypes.func.isRequired,
-  onClickCompleteButton: PropTypes.func.isRequired,
-  onClickShare: PropTypes.func.isRequired,
+  onClickDeleteButton: PropTypes.func,
+  onClickCompleteButton: PropTypes.func,
+  onClickShare: PropTypes.func,
   search: PropTypes.bool
 };
 

@@ -13,7 +13,6 @@ import getLists from 'gql/lists/getLists.gql';
 
 export class ImportList extends PureComponent {
   componentDidMount = async () => {
-    console.log('componentDidMount', this.props.match.params.listId);
     const res = await this.props.client
       .mutate({
         mutation: IMPORT_LIST,
@@ -31,7 +30,6 @@ export class ImportList extends PureComponent {
         ]
       })
       .catch(err => {
-        console.log(err);
         // TODO SET ERROR STATE
       });
     if (res && res.data && res.data.importList) {
