@@ -1,10 +1,9 @@
-import React, { PureComponent, Fragment } from 'react';
+import React, { PureComponent } from 'react';
 import { injectIntl } from 'react-intl';
 
 import { Query, compose, withApollo } from 'react-apollo';
 import { withRouter } from 'react-router';
 
-import { Row } from 'reactstrap';
 import { ListItem } from 'modules/items/components';
 import { ContainerTemplate, Loader } from 'modules/global/components';
 
@@ -85,12 +84,13 @@ export class Series extends PureComponent {
             return data.getUserSeries.map(serie => (
               <ListItem
                 key={serie.id}
+                id={serie.id}
                 images={serie.serie.images}
                 title={serie.serie.title}
                 completed={serie.completed}
-                onClickItem={() => this.goToItemDetail(serie.id)}
-                onClickDeleteButton={() => this.handleDeleteItem(serie.id)}
-                onClickCompleteButton={() => this.handleCompleteMovie(serie.id)}
+                onClickItem={this.goToItemDetail}
+                onClickDeleteButton={this.handleDeleteItem}
+                onClickCompleteButton={this.handleCompleteMovie}
               />
             ));
           }}

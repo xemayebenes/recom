@@ -1,10 +1,9 @@
-import React, { PureComponent, Fragment } from 'react';
+import React, { PureComponent } from 'react';
 import { injectIntl } from 'react-intl';
 
 import { Query, compose, withApollo } from 'react-apollo';
 import { withRouter } from 'react-router';
 
-import { Row } from 'reactstrap';
 import { ListItem } from 'modules/items/components';
 import { ContainerTemplate, Loader } from 'modules/global/components';
 
@@ -85,12 +84,13 @@ export class Movies extends PureComponent {
             return data.getUserMovies.map(movie => (
               <ListItem
                 key={movie.id}
+                id={movie.id}
                 images={movie.film.images}
                 title={movie.film.title}
                 completed={movie.completed}
-                onClickItem={() => this.goToItemDetail(movie.id)}
-                onClickDeleteButton={() => this.handleDeleteItem(movie.id)}
-                onClickCompleteButton={() => this.handleCompleteMovie(movie.id)}
+                onClickItem={this.goToItemDetail}
+                onClickDeleteButton={this.handleDeleteItem}
+                onClickCompleteButton={this.handleCompleteMovie}
               />
             ));
           }}

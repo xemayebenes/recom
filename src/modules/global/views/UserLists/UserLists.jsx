@@ -4,11 +4,11 @@ import { injectIntl } from 'react-intl';
 import { Query, compose, withApollo } from 'react-apollo';
 import { withRouter } from 'react-router';
 import classnames from 'classnames';
-import { Row, Col, Container, Button } from 'reactstrap';
+import { Button } from 'reactstrap';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import faFilm from '@fortawesome/fontawesome-free-solid/faFilm';
-import faTv from '@fortawesome/fontawesome-free-solid/faTv';
-import { ContainerScrollHorizontal, Loader } from 'modules/global/components';
+import faPlus from '@fortawesome/fontawesome-free-solid/faPlus';
+import { Loader } from 'modules/global/components';
+import { UserListItem } from 'modules/items/components';
 import getLists from 'gql/lists/getLists.gql';
 
 import styles from './UserLists.mod.css';
@@ -28,18 +28,6 @@ export class UserLists extends PureComponent {
 
   goToNewListForm = () => this.props.history.push('/lists/new');
 
-  // <Row>
-  //   <Col className="my-2">
-  //     <Button
-  //       size="sm"
-  //       color="primary"
-  //       onClick={this.goToNewListForm}
-  //       className="float-right"
-  //     >
-  //       New List
-  //     </Button>
-  //   </Col>
-  // </Row>
   render() {
     return (
       <Fragment>
@@ -51,6 +39,23 @@ export class UserLists extends PureComponent {
         >
           <div>YOUR LISTS</div>
         </div>
+        <div className="m-3">
+          <div className="d-flex justify-content-end">
+            <Button
+              size="sm"
+              color="primary"
+              onClick={this.goToNewListForm}
+              className="float-right"
+            >
+              <div className="d-flex align-items-baseline">
+                <div className="mr-3 fa-xs">
+                  <FontAwesomeIcon icon={faPlus} />
+                </div>
+                <div className="text-uppercase"> New list</div>
+              </div>
+            </Button>
+          </div>
+        </div>
         <div className={styles.container}>
           <Query
             variables={{ userId: this.props.user.userId }}
@@ -61,44 +66,17 @@ export class UserLists extends PureComponent {
               if (error) return <p>Error :</p>;
 
               return (
-                <Fragment>
-                  <div>
-                    {data.lists.map(list => (
-                      <div
-                        className={styles.list}
-                        key={list.id}
-                        onClick={() => this.goToListDetail(list.id)}
-                      >
-                        <div className="text-left pl-5 bg-light">
-                          {list.name}
-                        </div>
-
-                        <ContainerScrollHorizontal>
-                          {list.items.map(item => (
-                            <div className={styles.card}>
-                              <img
-                                key={item.id}
-                                src={item.images.medium.main}
-                                className={styles.image}
-                                alt="main"
-                                onClick={event => {
-                                  event.stopPropagation();
-
-                                  this.goToItemDetail(item.id, list.type);
-                                }}
-                              />
-                              <div className={styles.cardBottom}>
-                                <div className="text-right mr-2">
-                                  {item.title}
-                                </div>
-                              </div>
-                            </div>
-                          ))}
-                        </ContainerScrollHorizontal>
-                      </div>
-                    ))}
-                  </div>
-                </Fragment>
+                <div>
+                  {data.lists.map(list => (
+                    <UserListItem
+                      key={list.id}
+                      id={list.id}
+                      list={list}
+                      onClick={this.goToListDetail}
+                      onClickItemDetail={this.goToItemDetail}
+                    />
+                  ))}
+                </div>
               );
             }}
           </Query>

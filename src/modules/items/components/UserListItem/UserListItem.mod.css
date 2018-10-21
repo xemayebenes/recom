@@ -1,0 +1,25 @@
+/* csslint ignore:start */
+
+.list {
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--sky-blue);
+}
+
+.image {
+  max-width: 100%;
+  height: auto;
+}
+
+.card {
+  flex: 0 0 auto;
+  overflow: hidden;
+  padding-right: 4px;
+}
+
+.cardBottom {
+  transform: translateY(-497px);
+  background-color: var(--prussian-blue) !important;
+  color: white;
+}
