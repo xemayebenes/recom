@@ -17,55 +17,49 @@ const ListItem = ({
   onClickCompleteButton,
   onClickRemoveFromList
 }) => (
-  <Col xs="12" md="6" lg="3">
-    <div className="shadow p-2 d-flex flex-column h-100 justify-content-between">
-      <div onClick={onClickItem}>
-        <div className="text-center">{title} </div>
-        <div className="text-center">
-          <img
-            src={images.medium.main}
-            alt="main"
-            className={classnames('p-2', styles.image)}
-          />
+  <div onClick={onClickItem} className={styles.card}>
+    <img src={images.medium.main} alt="main" className={styles.image} />
+    <div className={styles.cardBottom}>
+      <div className="ml-2">{title}</div>
+      <div className="d-flex justify-content-end">
+        <div className="align-self-end">
+          {onClickCompleteButton && (
+            <Button
+              disabled={completed}
+              outline
+              size="sm"
+              color="secondary"
+              onClick={onClickCompleteButton}
+              className="mr-1"
+            >
+              <FontAwesomeIcon icon={faCheckCircle} />
+            </Button>
+          )}
+
+          {onClickDeleteButton && (
+            <Button
+              outline
+              size="sm"
+              color="primary"
+              onClick={onClickDeleteButton}
+            >
+              <FontAwesomeIcon icon={faTrashAlt} />
+            </Button>
+          )}
+          {onClickRemoveFromList && (
+            <Button
+              outline
+              size="sm"
+              color="warning"
+              onClick={onClickRemoveFromList}
+            >
+              <FontAwesomeIcon icon={faMinusSquare} />
+            </Button>
+          )}
         </div>
       </div>
-      <div className="align-self-end">
-        {onClickCompleteButton && (
-          <Button
-            disabled={completed}
-            outline
-            size="sm"
-            color="secondary"
-            onClick={onClickCompleteButton}
-            className="mr-1"
-          >
-            <FontAwesomeIcon icon={faCheckCircle} />
-          </Button>
-        )}
-
-        {onClickDeleteButton && (
-          <Button
-            outline
-            size="sm"
-            color="primary"
-            onClick={onClickDeleteButton}
-          >
-            <FontAwesomeIcon icon={faTrashAlt} />
-          </Button>
-        )}
-        {onClickRemoveFromList && (
-          <Button
-            outline
-            size="sm"
-            color="warning"
-            onClick={onClickRemoveFromList}
-          >
-            <FontAwesomeIcon icon={faMinusSquare} />
-          </Button>
-        )}
-      </div>
     </div>
-  </Col>
+  </div>
 );
 
 ListItem.displayName = 'ListItem';

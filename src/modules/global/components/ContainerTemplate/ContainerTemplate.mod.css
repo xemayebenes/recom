@@ -9,8 +9,6 @@
 }
 
 .container {
-  border-left: solid 2px var(--prussian-blue);
-  border-right: solid 2px var(--prussian-blue);
-  flex: 1;
-  background-color: white;
+  height: 100%;
+  display: flex;
 }

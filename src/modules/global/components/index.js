@@ -8,4 +8,7 @@ export { default as MenuItem } from './MenuItem';
 export { default as AuthContext, AuthContextProvider } from './AuthContext';
 export { default as ListSelect } from './ListSelect';
 export { default as ContainerTemplate } from './ContainerTemplate';
+export {
+  default as ContainerScrollHorizontal
+} from './ContainerScrollHorizontal';
 export { default as Loader } from './Loader';

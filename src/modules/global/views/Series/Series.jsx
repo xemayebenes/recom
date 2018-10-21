@@ -74,39 +74,27 @@ export class Series extends PureComponent {
   render() {
     return (
       <ContainerTemplate title={<div>SERIES</div>}>
-        <Row>
-          <Query
-            variables={{ userId: this.props.user.userId }}
-            query={getUserSeries}
-          >
-            {({ loading, error, data }) => {
-              if (loading) return <Loader />;
-              if (error) return <p>Error :(</p>;
+        <Query
+          variables={{ userId: this.props.user.userId }}
+          query={getUserSeries}
+        >
+          {({ loading, error, data }) => {
+            if (loading) return <Loader />;
+            if (error) return <p>Error :(</p>;
 
-              return (
-                <Fragment>
-                  <div className="flex-wrap flex-row justify-content-start d-flex w-100">
-                    {data.getUserSeries.map(serie => (
-                      <ListItem
-                        key={serie.id}
-                        images={serie.serie.images}
-                        title={serie.serie.title}
-                        completed={serie.completed}
-                        onClickItem={() => this.goToItemDetail(serie.id)}
-                        onClickDeleteButton={() =>
-                          this.handleDeleteItem(serie.id)
-                        }
-                        onClickCompleteButton={() =>
-                          this.handleCompleteMovie(serie.id)
-                        }
-                      />
-                    ))}
-                  </div>
-                </Fragment>
-              );
-            }}
-          </Query>
-        </Row>
+            return data.getUserSeries.map(serie => (
+              <ListItem
+                key={serie.id}
+                images={serie.serie.images}
+                title={serie.serie.title}
+                completed={serie.completed}
+                onClickItem={() => this.goToItemDetail(serie.id)}
+                onClickDeleteButton={() => this.handleDeleteItem(serie.id)}
+                onClickCompleteButton={() => this.handleCompleteMovie(serie.id)}
+              />
+            ));
+          }}
+        </Query>
       </ContainerTemplate>
     );
   }

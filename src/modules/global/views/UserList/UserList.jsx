@@ -5,6 +5,7 @@ import { Query, compose, withApollo, Mutation } from 'react-apollo';
 import { withRouter } from 'react-router';
 
 import { Row, Col, Container, Button } from 'reactstrap';
+import classnames from 'classnames';
 
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import faFilm from '@fortawesome/fontawesome-free-solid/faFilm';
@@ -13,7 +14,7 @@ import faShareAlt from '@fortawesome/fontawesome-free-solid/faShareAlt';
 
 import { ListItem } from 'modules/items/components';
 import { SendNotificationModal } from 'modules/notifications';
-import { ContainerTemplate, Loader } from 'modules/global/components';
+import { ContainerScrollHorizontal, Loader } from 'modules/global/components';
 
 import getList from 'gql/lists/getList.gql';
 import getLists from 'gql/lists/getLists.gql';
@@ -64,9 +65,62 @@ export class Movies extends PureComponent {
     this.setState({ showModal: true, title: name, listId: id });
   };
 
+  // <Col xs={{ size: 3, offset: 6 }} md={{ size: 1, offset: 10 }}>
+  //   <Mutation
+  //     mutation={REMOVE_LIST}
+  //     onCompleted={() => this.props.history.push('/lists')}
+  //   >
+  //     {(removelist, { loading, error }) => (
+  //       <Button
+  //         size="sm"
+  //         color="primary"
+  //         className="float-right"
+  //         onClick={async () => {
+  //           await removelist({
+  //             variables: {
+  //               listId: data.list.id
+  //             },
+  //             update: (proxy, { data }) => {
+  //               const cache = proxy.readQuery({
+  //                 query: getLists,
+  //                 variables: {
+  //                   userId: this.props.user.userId
+  //                 }
+  //               });
+  //               proxy.writeQuery({
+  //                 query: getLists,
+  //                 variables: {
+  //                   userId: this.props.user.userId
+  //                 },
+  //                 data: {
+  //                   lists: cache.lists.filter(
+  //                     list => list.id !== data.removeList
+  //                   )
+  //                 }
+  //               });
+  //             }
+  //           });
+  //         }}
+  //       >
+  //         Remove
+  //       </Button>
+  //     )}
+  //   </Mutation>
+  // </Col>
+  // <Col xs="3" md="1">
+  //   <Button
+  //     size="sm"
+  //     color="primary"
+  //     className="float-right"
+  //     onClick={() => this.openShareModal(data.list)}
+  //   >
+  //     Share
+  //   </Button>
+  // </Col>
+
   render() {
     return (
-      <div className={styles.container}>
+      <Fragment>
         <Query
           variables={{
             userId: this.props.user.userId,
@@ -79,70 +133,19 @@ export class Movies extends PureComponent {
             if (error) return <p>Error :(</p>;
 
             return (
-              <ContainerTemplate title={<div>{data.list.name}</div>}>
-                <Row className="my-2">
-                  <Col xs={{ size: 3, offset: 6 }} md={{ size: 1, offset: 10 }}>
-                    <Mutation
-                      mutation={REMOVE_LIST}
-                      onCompleted={() => this.props.history.push('/lists')}
-                    >
-                      {(removelist, { loading, error }) => (
-                        <Button
-                          size="sm"
-                          color="primary"
-                          className="float-right"
-                          onClick={async () => {
-                            await removelist({
-                              variables: {
-                                listId: data.list.id
-                              },
-                              update: (proxy, { data }) => {
-                                const cache = proxy.readQuery({
-                                  query: getLists,
-                                  variables: {
-                                    userId: this.props.user.userId
-                                  }
-                                });
-                                proxy.writeQuery({
-                                  query: getLists,
-                                  variables: {
-                                    userId: this.props.user.userId
-                                  },
-                                  data: {
-                                    lists: cache.lists.filter(
-                                      list => list.id !== data.removeList
-                                    )
-                                  }
-                                });
-                              }
-                            });
-                          }}
-                        >
-                          Remove
-                        </Button>
-                      )}
-                    </Mutation>
-                  </Col>
-                  <Col xs="3" md="1">
-                    <Button
-                      size="sm"
-                      color="primary"
-                      className="float-right"
-                      onClick={() => this.openShareModal(data.list)}
-                    >
-                      Share
-                    </Button>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col>
-                    {data.list.description && (
-                      <div>{data.list.description}</div>
-                    )}
-                  </Col>
-                </Row>
-                <Row>
-                  <div className="flex-wrap flex-row justify-content-start d-flex w-100">
+              <Fragment>
+                <div
+                  className={classnames(
+                    styles.header,
+                    'd-flex flex-column justify-content-center align-items-center'
+                  )}
+                >
+                  <div>{data.list.name}</div>
+                </div>
+                {data.list.description && <div>{data.list.description}</div>}
+
+                <div className={styles.container}>
+                  <ContainerScrollHorizontal>
                     {data.list.items.map(item => (
                       <ListItem
                         key={item.id}
@@ -156,9 +159,9 @@ export class Movies extends PureComponent {
                         }
                       />
                     ))}
-                  </div>
-                </Row>
-              </ContainerTemplate>
+                  </ContainerScrollHorizontal>
+                </div>
+              </Fragment>
             );
           }}
         </Query>
@@ -171,7 +174,7 @@ export class Movies extends PureComponent {
             handleCloseModal={this.handleCloseModal}
           />
         )}
-      </div>
+      </Fragment>
     );
   }
 }

@@ -1,4 +1,43 @@
+.card {
+  flex: 0 0 auto;
+  max-width: 100%;
+  height: auto;
+
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  flex-direction: column;
+}
+
 .image {
-  width: 75%;
-  height: 75%;
+  max-width: 100%;
+  height: auto;
+}
+.cardBottom {
+  transform: translateY(-20px);
+  background-color: white;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  border-right: 1px solid var(--prussian-blue);
+  color: var(--prussian-blue);
+}
+
+/* // Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) {
+}
+
+/* // Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+  .cardBottom {
+    transform: translateY(-80px);
+  }
+}
+
+/* // Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+}
+
+/* // Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
 }

@@ -1,0 +1,11 @@
+/* csslint ignore:start */
+
+.scrolling-wrapper-flexbox {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+
+  margin-top: auto;
+  margin-bottom: auto;
+}

@@ -1,6 +1,14 @@
+/* csslint ignore:start */
+
+.header {
+  background-color: var(--prussian-blue);
+  color: white;
+  height: 100px;
+  border-bottom: solid 1px var(--gold-leaf);
+  font-size: 2.5rem;
+  font-weight: 1000;
+}
 .container {
-  background-color: #dadada;
-  flex: 1;
+  height: 100%;
   display: flex;
-  flex-direction: column;
 }

@@ -8,7 +8,7 @@ import { Row, Col, Container, Button } from 'reactstrap';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import faFilm from '@fortawesome/fontawesome-free-solid/faFilm';
 import faTv from '@fortawesome/fontawesome-free-solid/faTv';
-import { ContainerTemplate, Loader } from 'modules/global/components';
+import { ContainerScrollHorizontal, Loader } from 'modules/global/components';
 import getLists from 'gql/lists/getLists.gql';
 
 import styles from './UserLists.mod.css';
@@ -28,81 +28,82 @@ export class UserLists extends PureComponent {
 
   goToNewListForm = () => this.props.history.push('/lists/new');
 
+  // <Row>
+  //   <Col className="my-2">
+  //     <Button
+  //       size="sm"
+  //       color="primary"
+  //       onClick={this.goToNewListForm}
+  //       className="float-right"
+  //     >
+  //       New List
+  //     </Button>
+  //   </Col>
+  // </Row>
   render() {
     return (
-      <ContainerTemplate title={<div>YOUR LISTS</div>}>
-        <Row>
-          <Col className="my-2">
-            <Button
-              size="sm"
-              color="primary"
-              onClick={this.goToNewListForm}
-              className="float-right"
-            >
-              New List
-            </Button>
-          </Col>
-        </Row>
-        <Row>
+      <Fragment>
+        <div
+          className={classnames(
+            styles.header,
+            'd-flex flex-column justify-content-center align-items-center'
+          )}
+        >
+          <div>YOUR LISTS</div>
+        </div>
+        <div className={styles.container}>
           <Query
             variables={{ userId: this.props.user.userId }}
             query={getLists}
           >
             {({ loading, error, data }) => {
               if (loading) return <Loader />;
-              if (error) return <p>Error :(</p>;
+              if (error) return <p>Error :</p>;
 
               return (
                 <Fragment>
-                  <div className="flex-wrap flex-row justify-content-start d-flex w-100">
+                  <div>
                     {data.lists.map(list => (
-                      <Col
-                        xs="12"
-                        md="6"
-                        lg="3"
+                      <div
+                        className={styles.list}
                         key={list.id}
                         onClick={() => this.goToListDetail(list.id)}
                       >
-                        <div className="shadow p-2 d-flex flex-column h-100 justify-content-between">
-                          <div className="text-center">{list.name}</div>
+                        <div className="text-left pl-5 bg-light">
+                          {list.name}
+                        </div>
 
-                          <div className="flex-wrap flex-row text-center">
-                            {list.items.slice(0, 4).map(item => (
+                        <ContainerScrollHorizontal>
+                          {list.items.map(item => (
+                            <div className={styles.card}>
                               <img
                                 key={item.id}
                                 src={item.images.medium.main}
+                                className={styles.image}
                                 alt="main"
-                                className={classnames({
-                                  [styles.image4]: list.items.length >= 3,
-                                  [styles.image2]: list.items.length === 2,
-                                  [styles.image1]: list.items.length === 1
-                                })}
                                 onClick={event => {
                                   event.stopPropagation();
 
                                   this.goToItemDetail(item.id, list.type);
                                 }}
                               />
-                            ))}
-                          </div>
-                          <div className="align-self-end">
-                            {list.type === 'Movie' && (
-                              <FontAwesomeIcon icon={faFilm} />
-                            )}
-                            {list.type === 'Serie' && (
-                              <FontAwesomeIcon icon={faTv} />
-                            )}
-                          </div>
-                        </div>
-                      </Col>
+                              <div className={styles.cardBottom}>
+                                <div className="text-right mr-2">
+                                  {item.title}
+                                </div>
+                              </div>
+                            </div>
+                          ))}
+                        </ContainerScrollHorizontal>
+                      </div>
                     ))}
                   </div>
                 </Fragment>
               );
             }}
           </Query>
-        </Row>
-      </ContainerTemplate>
+        </div>
+      </Fragment>
     );
   }
 }

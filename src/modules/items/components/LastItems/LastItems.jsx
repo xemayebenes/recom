@@ -29,7 +29,6 @@ export class LastItems extends PureComponent {
             {({ loading, error, data }) => {
               if (loading) return <Loader />;
               if (error) return <p>Error :(</p>;
-              console.log(data);
               return data.getUserLastItems.map(item => (
                 <LastItem key={item.item.id} {...item} />
               ));
