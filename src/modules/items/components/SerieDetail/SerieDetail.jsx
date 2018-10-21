@@ -4,7 +4,7 @@ import { injectIntl } from 'react-intl';
 import { Query, compose, withApollo } from 'react-apollo';
 import { withRouter } from 'react-router';
 
-import { SerieData, ActionsPanel } from 'modules/items/components';
+import { SerieData } from 'modules/items/components';
 import { SendNotificationModal } from 'modules/notifications';
 
 import getUserSerie from 'gql/series/getUserSerie.gql';
@@ -83,8 +83,7 @@ export class SerieDetail extends PureComponent {
     });
   };
 
-  openShareModal = ({ externalId, serie: { title } }) => {
-    console.log({ externalId, title });
+  openShareModal = (externalId, title) => {
     this.setState({ showModal: true, externalId, title });
   };
 
@@ -114,14 +113,12 @@ export class SerieDetail extends PureComponent {
               <React.Fragment>
                 <SerieData
                   {...serie}
+                  id={data.getUserSerie.id}
+                  externalId={data.getUserSerie.externalId}
                   completed={data.getUserSerie.completed}
-                  onClickDeleteButton={() =>
-                    this.handleDeleteItem(data.getUserSerie.id)
-                  }
-                  onClickCompleteButton={() =>
-                    this.handleCompleteMovie(data.getUserSerie.id)
-                  }
-                  onClickShare={() => this.openShareModal(data.getUserSerie)}
+                  onClickDeleteButton={this.handleDeleteItem}
+                  onClickCompleteButton={this.handleCompleteMovie}
+                  onClickShare={this.openShareModal}
                 />
               </React.Fragment>
             );

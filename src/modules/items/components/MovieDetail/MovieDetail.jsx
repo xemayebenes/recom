@@ -9,7 +9,7 @@ import removeMovie from 'gql/movies/removeMovie.gql';
 import completeMovie from 'gql/movies/completeMovie.gql';
 import getUserLastItems from 'gql/lastItems/getUserLastItems.gql';
 
-import { MovieData, ActionsPanel } from 'modules/items/components';
+import { MovieData } from 'modules/items/components';
 import { SendNotificationModal } from 'modules/notifications';
 export class MovieDetail extends PureComponent {
   static displayName = 'MovieDetail';
@@ -80,7 +80,7 @@ export class MovieDetail extends PureComponent {
       }
     });
   };
-  openShareModal = ({ externalId, film: { title } }) => {
+  openShareModal = (externalId, title) => {
     this.setState({ showModal: true, externalId, title });
   };
 
@@ -110,14 +110,12 @@ export class MovieDetail extends PureComponent {
               <Fragment>
                 <MovieData
                   {...film}
+                  id={data.getUserMovie.id}
+                  externalId={data.getUserMovie.externalId}
                   completed={data.getUserMovie.completed}
-                  onClickDeleteButton={() =>
-                    this.handleDeleteItem(data.getUserMovie.id)
-                  }
-                  onClickCompleteButton={() =>
-                    this.handleCompleteMovie(data.getUserMovie.id)
-                  }
-                  onClickShare={() => this.openShareModal(data.getUserMovie)}
+                  onClickDeleteButton={this.handleDeleteItem}
+                  onClickCompleteButton={this.handleCompleteMovie}
+                  onClickShare={this.openShareModal}
                 />
               </Fragment>
             );

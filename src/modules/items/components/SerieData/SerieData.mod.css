@@ -14,9 +14,13 @@
 }
 
 .icon {
-  font-size: 4rem;
+  font-size: 2rem;
   margin-right: 5px;
   color: var(--prussian-blue);
+}
+.tmdbIcon {
+  width: 50px;
+  cursor: pointer;
 }
 .video {
   height: 400px;

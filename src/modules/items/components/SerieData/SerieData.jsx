@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import classnames from 'classnames';
 import { Container, Badge, Button } from 'reactstrap';
-
+import { compose, withHandlers } from 'recompose';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import faImdb from '@fortawesome/fontawesome-free-brands/faImdb';
 import faChartLine from '@fortawesome/fontawesome-free-solid/faChartLine';
@@ -12,6 +12,7 @@ import faCheckCircle from '@fortawesome/fontawesome-free-regular/faCheckCircle';
 import faShareAlt from '@fortawesome/fontawesome-free-solid/faShareAlt';
 import faTrashAlt from '@fortawesome/fontawesome-free-regular/faTrashAlt';
 
+import tmdbIcon from 'assets/tmdb.svg';
 import styles from './SerieData.mod.css';
 const SerieData = ({
   externalId,
@@ -23,9 +24,9 @@ const SerieData = ({
   omdbData,
   genres,
   completed,
-  onClickDeleteButton,
-  onClickCompleteButton,
-  onClickShare,
+  handleClickDeleteButton,
+  handleClickCompleteButton,
+  handleClickShareButton,
   search = false
 }) => (
   <React.Fragment>
@@ -37,32 +38,48 @@ const SerieData = ({
       )}
     >
       <div className={styles.title}>{title}</div>
-    </div>
-    <Container>
       {search === false && (
-        <div className="p-2 float-right">
-          <Button
-            outline
-            size="sm"
-            color="primary"
-            onClick={onClickDeleteButton}
-          >
-            <FontAwesomeIcon icon={faTrashAlt} />
-          </Button>
+        <div className="mr-2 mr-md-5 d-flex flex-column align-self-end">
           <Button
             disabled={completed}
-            outline
             size="sm"
             color="secondary"
-            onClick={onClickCompleteButton}
+            onClick={handleClickCompleteButton}
+            className="mb-1"
           >
-            <FontAwesomeIcon icon={faCheckCircle} />
+            <div className="d-flex align-items-baseline">
+              <div className="mr-3 fa-xs">
+                <FontAwesomeIcon icon={faCheckCircle} />
+              </div>
+              <div className="text-uppercase"> Seen</div>
+            </div>
           </Button>
-          <Button outline size="sm" color="secondary" onClick={onClickShare}>
-            <FontAwesomeIcon icon={faShareAlt} />
+
+          <Button
+            size="sm"
+            color="primary"
+            onClick={handleClickDeleteButton}
+            className="mb-1"
+          >
+            <div className="d-flex align-items-baseline">
+              <div className="mr-3 fa-xs">
+                <FontAwesomeIcon icon={faTrashAlt} />
+              </div>
+              <div className="text-uppercase"> Remove</div>
+            </div>
+          </Button>
+          <Button size="sm" color="secondary" onClick={handleClickShareButton}>
+            <div className="d-flex align-items-baseline">
+              <div className="mr-3 fa-xs">
+                <FontAwesomeIcon icon={faShareAlt} />
+              </div>
+              <div className="text-uppercase"> Share</div>
+            </div>
           </Button>
         </div>
       )}
+    </div>
+    <Container>
       <div className="p-2 d-flex flex-row flex-wrap justify-content-start">
         {genres &&
           genres.map(genre => (
@@ -79,25 +96,40 @@ const SerieData = ({
         />
         <div className="text-justify">{overview}</div>
       </div>
-      <div className="p-2 d-flex flex-row flex-wrap justify-content-between">
-        {popularity && (
-          <div>
-            <FontAwesomeIcon icon={faChartLine} className={styles.icon} />
-            {popularity}
+      <div className="d-flex justify-content-between">
+        <div className="p-2 d-flex flex-column flex-wrap justify-content-between">
+          {popularity && (
+            <div className="mb-1">
+              <FontAwesomeIcon icon={faChartLine} className={styles.icon} />
+              {popularity}
+            </div>
+          )}
+          {vote_average && (
+            <div className="mb-2">
+              <FontAwesomeIcon icon={faThumbsUp} className={styles.icon} />
+              {vote_average}
+            </div>
+          )}
+          {omdbData &&
+            omdbData.imdbRating && (
+              <div>
+                <FontAwesomeIcon icon={faImdb} className={styles.icon} />
+                {omdbData.imdbRating}
+              </div>
+            )}
+        </div>
+        <div className="p-2 d-flex align-items-baseline">
+          <div className="mr-3 fa-xs">
+            <a
+              href={`https://www.themoviedb.org/tv/${externalId}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img src={tmdbIcon} alt="tmdbIcon" className={styles.tmdbIcon} />
+            </a>
           </div>
-        )}
-        {vote_average && (
-          <div>
-            <FontAwesomeIcon icon={faThumbsUp} className={styles.icon} />
-            {vote_average}
-          </div>
-        )}
-        {omdbData && (
-          <div>
-            <FontAwesomeIcon icon={faImdb} className={styles.icon} />
-            {omdbData.imdbRating}
-          </div>
-        )}
+          <div className="text-uppercase"> TMDB PAGE</div>
+        </div>
       </div>
     </Container>
   </React.Fragment>
@@ -106,4 +138,20 @@ const SerieData = ({
 SerieData.displayName = 'SerieData';
 
 SerieData.propTypes = {};
-export default SerieData;
+
+export default compose(
+  withHandlers({
+    handleClickDeleteButton: props => event => {
+      event.stopPropagation();
+      props.onClickDeleteButton(props.id);
+    },
+    handleClickCompleteButton: props => event => {
+      event.stopPropagation();
+      props.onClickCompleteButton(props.id);
+    },
+    handleClickShareButton: props => event => {
+      event.stopPropagation();
+      props.onClickShare(props.externalId, props.title);
+    }
+  })
+)(SerieData);

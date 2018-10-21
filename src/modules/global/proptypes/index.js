@@ -9,3 +9,18 @@ export const imageShape = PropTypes.shape({
   medium: imagesType,
   small: imagesType
 });
+export const omdbDataShape = PropTypes.shape({
+  imdbRating: PropTypes.number
+});
+export const videoDataShape = PropTypes.arrayOf(
+  PropTypes.shape({
+    key: PropTypes.string,
+    trailer: PropTypes.string
+  })
+);
+export const genreShape = PropTypes.arrayOf(
+  PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string
+  })
+);

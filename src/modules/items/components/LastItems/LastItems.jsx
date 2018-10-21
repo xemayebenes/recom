@@ -1,4 +1,4 @@
-import React, { PureComponent, Fragment } from 'react';
+import React, { PureComponent } from 'react';
 import { injectIntl } from 'react-intl';
 
 import { Query } from 'react-apollo';
