@@ -55,7 +55,7 @@ export class ListForm extends PureComponent {
   };
 
   handleSelectType = type => {
-    this.setState({ type });
+    this.setState({ type, items: [] });
   };
 
   setMovies = (type, movies) => {
@@ -158,30 +158,31 @@ export class ListForm extends PureComponent {
               </div>
             </FormGroup>
             {this.state.items && (
-              <div className={styles.list}>
-                <ContainerScrollHorizontal>
-                  {this.state.items &&
-                    this.state.items.map(item => (
-                      <ListFormItem
-                        key={item.id}
-                        id={item.id}
-                        title={item.title}
-                        images={item.images}
-                        selected={this.state.itemSelected.indexOf(item.id) >= 0}
-                        onClick={this.selectItem}
-                      />
-                    ))}
-                </ContainerScrollHorizontal>
-              </div>
-            )}
-            <Row>
-              <Col xs={{ size: 2, offset: 10 }} md={{ size: 1, offset: 11 }}>
+              <Fragment>
+                <div className={styles.list}>
+                  <ContainerScrollHorizontal>
+                    {this.state.items &&
+                      this.state.items.map(item => (
+                        <ListFormItem
+                          key={item.id}
+                          id={item.id}
+                          title={item.title}
+                          images={item.images}
+                          selected={
+                            this.state.itemSelected.indexOf(item.id) >= 0
+                          }
+                          onClick={this.selectItem}
+                        />
+                      ))}
+                  </ContainerScrollHorizontal>
+                </div>
+
                 <Mutation
                   mutation={CREATE_LIST}
                   onCompleted={this.handleOnCompleteCreate}
                 >
                   {(createList, { loading, error }) => (
-                    <Fragment>
+                    <div className="float-right mt-2">
                       <CreateListButton
                         onClick={createList}
                         name={this.state.name}
@@ -193,11 +194,11 @@ export class ListForm extends PureComponent {
 
                       {loading && <p>Loading...</p>}
                       {error && <p>Error :( Please try again</p>}
-                    </Fragment>
+                    </div>
                   )}
                 </Mutation>
-              </Col>
-            </Row>
+              </Fragment>
+            )}
           </Form>
         </Container>
       </Fragment>
