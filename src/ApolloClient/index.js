@@ -10,11 +10,11 @@ import { getAuthHeader, getToken } from 'utils/security';
 const baseApiUrl = process.env.REACT_APP_BASE_API_URL || '';
 
 const httpLink = createHttpLink({
-  uri: `${baseApiUrl}/graphql?`
+  uri: `https://${baseApiUrl}/graphql?`
 });
 
 const wsLink = new WebSocketLink({
-  uri: `ws://localhost:3001/subscriptions`,
+  uri: `ws://${baseApiUrl}/subscriptions`,
   options: {
     reconnect: true,
     connectionParams: () => ({
