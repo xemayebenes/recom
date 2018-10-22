@@ -1,0 +1,41 @@
+/* csslint ignore:start */
+.header {
+  background-color: var(--prussian-blue);
+  color: white;
+  height: 100px;
+  border-bottom: solid 1px var(--gold-leaf);
+  font-size: 2.5rem;
+  font-weight: 1000;
+}
+.card {
+  flex: 0 0 auto;
+  overflow: hidden;
+  padding-right: 4px;
+}
+
+.image {
+  max-width: 100%;
+  height: auto;
+}
+.shadow {
+  opacity: 0.6;
+}
+
+@media (min-width: 768px) {
+  .image {
+    min-height: 750px;
+  }
+}
+
+.list {
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--sky-blue);
+}
+
+.cardBottom {
+  transform: translateY(-497px);
+  background-color: var(--prussian-blue) !important;
+  color: white;
+}

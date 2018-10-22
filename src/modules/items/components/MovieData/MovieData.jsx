@@ -57,7 +57,7 @@ const MovieData = ({
         'd-flex flex-column justify-content-center align-items-center'
       )}
     >
-      <div className={styles.title}>{title}</div>
+      <div className={classnames('text-center', styles.title)}>{title}</div>
       {search === false && (
         <div className="mr-2 mr-md-5 d-flex flex-column align-self-end">
           <Button

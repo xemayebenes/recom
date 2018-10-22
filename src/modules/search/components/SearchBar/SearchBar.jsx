@@ -121,28 +121,34 @@ export class SearchBar extends PureComponent {
               {((searchFilms && searchFilms.length > 0) ||
                 (searchSeries && searchSeries.length > 0)) && (
                 <Fragment>
-                  <Nav tabs className="mt-2">
-                    <NavItem>
-                      <NavLink
-                        className={classnames({
-                          active: this.state.activeTab === MOVIE
-                        })}
-                        onClick={this.toggleMovie}
-                      >
+                  <div className="d-flex justify-content-around">
+                    <div
+                      className={classnames(
+                        'p-2',
+                        'flex-grow-1',
+                        styles.tab,
+                        styles['tab-right'],
+                        {
+                          [styles.active]: this.state.activeTab === MOVIE,
+                          [styles.inactive]: this.state.activeTab !== MOVIE
+                        }
+                      )}
+                    >
+                      <div onClick={this.toggleMovie}>
                         Movies ({searchFilms.length})
-                      </NavLink>
-                    </NavItem>
-                    <NavItem>
-                      <NavLink
-                        className={classnames({
-                          active: this.state.activeTab === SERIE
-                        })}
-                        onClick={this.toggleSerie}
-                      >
+                      </div>
+                    </div>
+                    <div
+                      className={classnames('p-2', 'flex-grow-1', styles.tab, {
+                        [styles.active]: this.state.activeTab === SERIE,
+                        [styles.inactive]: this.state.activeTab !== SERIE
+                      })}
+                    >
+                      <div onClick={this.toggleSerie}>
                         Series ({searchSeries.length})
-                      </NavLink>
-                    </NavItem>
-                  </Nav>
+                      </div>
+                    </div>
+                  </div>
                   <TabContent activeTab={this.state.activeTab}>
                     <TabPane tabId={MOVIE}>
                       {searchFilms.map(item => (

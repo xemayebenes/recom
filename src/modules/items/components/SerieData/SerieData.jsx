@@ -37,7 +37,7 @@ const SerieData = ({
         'd-flex flex-column justify-content-center align-items-center'
       )}
     >
-      <div className={styles.title}>{title}</div>
+      <div className={classnames('text-center', styles.title)}>{title}</div>
       {search === false && (
         <div className="mr-2 mr-md-5 d-flex flex-column align-self-end">
           <Button
@@ -96,16 +96,16 @@ const SerieData = ({
         />
         <div className="text-justify">{overview}</div>
       </div>
-      <div className="d-flex justify-content-between">
-        <div className="p-2 d-flex flex-column flex-wrap justify-content-between">
+      <div className="d-flex flex-column justify-content-between">
+        <div className="p-2 d-flex flex-wrap justify-content-end">
           {popularity && (
-            <div className="mb-1">
+            <div className="mr-3">
               <FontAwesomeIcon icon={faChartLine} className={styles.icon} />
               {popularity}
             </div>
           )}
           {vote_average && (
-            <div className="mb-2">
+            <div className="mr-3">
               <FontAwesomeIcon icon={faThumbsUp} className={styles.icon} />
               {vote_average}
             </div>
@@ -118,7 +118,7 @@ const SerieData = ({
               </div>
             )}
         </div>
-        <div className="p-2 d-flex align-items-baseline">
+        <div className="p-2 d-flex flex-wrap justify-content-start align-items-baseline">
           <div className="mr-3 fa-xs">
             <a
               href={`https://www.themoviedb.org/tv/${externalId}`}
@@ -128,7 +128,6 @@ const SerieData = ({
               <img src={tmdbIcon} alt="tmdbIcon" className={styles.tmdbIcon} />
             </a>
           </div>
-          <div className="text-uppercase"> TMDB PAGE</div>
         </div>
       </div>
     </Container>

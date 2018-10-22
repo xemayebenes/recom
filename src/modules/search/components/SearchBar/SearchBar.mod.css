@@ -17,3 +17,27 @@
 .searchContainer > .div {
   flex: 1;
 }
+.tab {
+  border-top-width: 2px;
+  border-top-style: solid;
+  border-top-color: var(--gold-leaf);
+}
+.tab-first {
+  border-left-width: 1px;
+  border-left-style: solid;
+  border-left-color: var(--gold-leaf);
+}
+.tab-right {
+  border-right-width: 1px;
+  border-right-style: solid;
+  border-right-color: var(--gold-leaf);
+}
+.active {
+  background-color: var(--ivory-black);
+  color: white;
+}
+.inactive {
+  background-color: var(--ivory-black);
+  color: white;
+  opacity: 0.65;
+}

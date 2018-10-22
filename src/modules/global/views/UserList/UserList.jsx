@@ -64,6 +64,10 @@ export class Movies extends PureComponent {
     this.setState({ showModal: true, title: name, listId: id });
   };
 
+  handleOnCompleteDelete = () => {
+    this.props.history.push('/lists');
+  };
+
   render() {
     return (
       <Fragment>
@@ -101,11 +105,19 @@ export class Movies extends PureComponent {
                       list={data.list}
                       onClick={this.openShareModal}
                     />
-                    <DeleteListButton
-                      id={data.list.id}
-                      userId={this.props.user.userId}
-                      history={this.props.history}
-                    />
+                    <Mutation
+                      mutation={REMOVE_LIST}
+                      onCompleted={this.handleOnCompleteDelete}
+                    >
+                      {(removelist, { loading, error }) => (
+                        <DeleteListButton
+                          id={data.list.id}
+                          userId={this.props.user.userId}
+                          history={this.props.history}
+                          onClick={removelist}
+                        />
+                      )}
+                    </Mutation>
                   </div>
                   <div className="text-justify">{data.list.description}</div>
                 </div>
@@ -175,54 +187,38 @@ class OpenShareModalButton extends PureComponent {
 class DeleteListButton extends PureComponent {
   static displayName = 'DeleteListButton';
 
-  handleOnComplete = () => {
-    this.props.history.push('/lists');
+  handleOnClick = async () => {
+    const { id, userId, onClick } = this.props;
+    await onClick({
+      variables: {
+        listId: id
+      },
+      refetchQueries: [
+        {
+          query: getLists,
+          variables: {
+            userId: userId
+          }
+        }
+      ]
+    });
   };
+
   render() {
-    const { id, userId } = this.props;
     return (
-      <Mutation mutation={REMOVE_LIST} onCompleted={this.handleOnComplete}>
-        {(removelist, { loading, error }) => (
-          <Button
-            size="sm"
-            color="primary"
-            className="float-right"
-            onClick={async () => {
-              await removelist({
-                variables: {
-                  listId: id
-                },
-                update: (proxy, { data }) => {
-                  const cache = proxy.readQuery({
-                    query: getLists,
-                    variables: {
-                      userId: userId
-                    }
-                  });
-                  proxy.writeQuery({
-                    query: getLists,
-                    variables: {
-                      userId: userId
-                    },
-                    data: {
-                      lists: cache.lists.filter(
-                        list => list.id !== data.removeList
-                      )
-                    }
-                  });
-                }
-              });
-            }}
-          >
-            <div className="d-flex align-items-baseline">
-              <div className="mr-3 fa-xs">
-                <FontAwesomeIcon icon={faTrashAlt} />
-              </div>
-              <div className="text-uppercase"> Remove</div>
-            </div>
-          </Button>
-        )}
-      </Mutation>
+      <Button
+        size="sm"
+        color="secondary"
+        className="float-right"
+        onClick={this.handleOnClick}
+      >
+        <div className="d-flex align-items-baseline">
+          <div className="mr-3 fa-xs">
+            <FontAwesomeIcon icon={faTrashAlt} />
+          </div>
+          <div className="text-uppercase"> Remove</div>
+        </div>
+      </Button>
     );
   }
 }
