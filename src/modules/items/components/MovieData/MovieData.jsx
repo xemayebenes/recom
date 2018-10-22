@@ -119,17 +119,20 @@ const MovieData = ({
         />
         <div className="text-justify">{overview}</div>
       </div>
-      <div className="d-flex justify-content-between">
-        <div className="p-2 d-flex flex-column flex-wrap justify-content-between">
+      <div className="d-flex flex-column justify-content-between">
+        <div className="p-2 d-flex flex-wrap justify-content-end">
           {popularity && (
-            <div className="mb-1">
+            <div className="mr-3">
               <FontAwesomeIcon icon={faChartLine} className={styles.icon} />
               {popularity}
             </div>
           )}
           {vote_average && (
-            <div className="mb-2">
-              <FontAwesomeIcon icon={faThumbsUp} className={styles.icon} />
+            <div className="mr-3">
+              <FontAwesomeIcon
+                icon={faThumbsUp}
+                className={classnames(styles.icon, styles.average)}
+              />
               {vote_average}
             </div>
           )}
@@ -141,32 +144,36 @@ const MovieData = ({
               </div>
             )}
         </div>
-        {videoData &&
-          videoData.length > 0 && (
-            <div
-              className="p-2 d-flex align-items-baseline"
-              onClick={toggleModal}
-            >
-              <div className="mr-3 fa-xs">
-                <FontAwesomeIcon
-                  icon={faYoutube}
-                  className={classnames(styles.icon, styles.youtubeIcon)}
-                />
+        <div className="p-2 d-flex flex-wrap justify-content-start align-items-baseline">
+          {videoData &&
+            videoData.length > 0 && (
+              <div
+                className="d-flex align-items-baseline"
+                onClick={toggleModal}
+              >
+                <div className="mr-3 fa-xs">
+                  <FontAwesomeIcon
+                    icon={faYoutube}
+                    className={classnames(styles.icon, styles.youtubeIcon)}
+                  />
+                </div>
               </div>
-              <div className="text-uppercase"> TRAILER</div>
+            )}
+          <div className="d-flex align-items-baseline">
+            <div className="mr-3 fa-xs">
+              <a
+                href={`https://www.themoviedb.org/movie/${externalId}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img
+                  src={tmdbIcon}
+                  alt="tmdbIcon"
+                  className={styles.tmdbIcon}
+                />
+              </a>
             </div>
-          )}
-        <div className="p-2 d-flex align-items-baseline">
-          <div className="mr-3 fa-xs">
-            <a
-              href={`https://www.themoviedb.org/movie/${externalId}`}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <img src={tmdbIcon} alt="tmdbIcon" className={styles.tmdbIcon} />
-            </a>
           </div>
-          <div className="text-uppercase"> TMDB PAGE</div>
         </div>
       </div>
     </Container>

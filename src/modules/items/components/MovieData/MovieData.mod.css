@@ -20,6 +20,9 @@
   margin-right: 5px;
   color: var(--prussian-blue);
 }
+.average {
+  padding-bottom: 2px;
+}
 .tmdbIcon {
   width: 50px;
   cursor: pointer;
