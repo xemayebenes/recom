@@ -109,6 +109,7 @@ export class ListNotificationsModal extends PureComponent {
                   title={notification.title}
                   type={notification.type}
                   externalId={notification.externalId}
+                  listId={notification.listId}
                   from={notification.from}
                   date={notification.date}
                   onClickDismissNotification={onClickDismissNotification}
