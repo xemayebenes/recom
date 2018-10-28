@@ -3,19 +3,14 @@ import { injectIntl } from 'react-intl';
 import { compose, withApollo } from 'react-apollo';
 import { withRouter } from 'react-router';
 
-import {
-  Button,
-  Modal,
-  ModalBody,
-  ModalFooter,
-  ListGroup,
-  ListGroupItem,
-  ListGroupItemHeading,
-  ListGroupItemText
-} from 'reactstrap';
+import { Button, Modal, ModalBody, ModalFooter, ListGroup } from 'reactstrap';
+import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import faTimesCircle from '@fortawesome/fontawesome-free-solid/faTimesCircle';
+
 import { MOVIE, SERIE, LIST } from 'modules/constants';
 
 import { SearchItemModal } from 'modules/search/components';
+import { NotificationItem } from 'modules/notifications';
 import getMovie from 'gql/movies/getMovie.gql';
 import getSerie from 'gql/series/getSerie.gql';
 
@@ -97,8 +92,7 @@ export class ListNotificationsModal extends PureComponent {
     const {
       notifications,
       handleCloseModal,
-      onClickDismissNotification,
-      intl
+      onClickDismissNotification
     } = this.props;
 
     const { showSearchItemModal, item, itemType } = this.state;
@@ -108,51 +102,29 @@ export class ListNotificationsModal extends PureComponent {
           <ModalBody>
             <ListGroup className={styles.list}>
               {notifications.map(notification => (
-                <ListGroupItem
+                <NotificationItem
                   key={notification.id}
-                  action
-                  className={notification.new ? null : styles.notNew}
-                  onClick={() =>
-                    notification.new
-                      ? this.handleSelectItem(
-                          notification.externalId,
-                          notification.type,
-                          notification.id,
-                          notification.listId
-                        )
-                      : null
-                  }
-                >
-                  <ListGroupItemHeading>
-                    {notification.type}
-                  </ListGroupItemHeading>
-                  <ListGroupItemText>{notification.title}</ListGroupItemText>
-                  <ListGroupItemText>
-                    {notification.externalId}
-                  </ListGroupItemText>
-                  <ListGroupItemText>
-                    From: {notification.from.email}
-                  </ListGroupItemText>
-                  <ListGroupItemText>
-                    {intl.formatDate(notification.date)}
-                  </ListGroupItemText>
-                  <Button
-                    size="sm"
-                    color="primary"
-                    onClick={event => {
-                      event.stopPropagation();
-                      onClickDismissNotification(notification.id);
-                    }}
-                  >
-                    Dismiss
-                  </Button>
-                </ListGroupItem>
+                  id={notification.id}
+                  isNew={notification.new}
+                  title={notification.title}
+                  type={notification.type}
+                  externalId={notification.externalId}
+                  from={notification.from}
+                  date={notification.date}
+                  onClickDismissNotification={onClickDismissNotification}
+                  onClickItem={this.handleSelectItem}
+                />
               ))}
             </ListGroup>
           </ModalBody>
           <ModalFooter>
             <Button color="secondary" onClick={handleCloseModal}>
-              Close
+              <div className="d-flex align-items-baseline">
+                <div className="mr-3 fa-xs">
+                  <FontAwesomeIcon icon={faTimesCircle} />
+                </div>
+                <div className="text-uppercase"> Close</div>
+              </div>
             </Button>
           </ModalFooter>
         </Modal>

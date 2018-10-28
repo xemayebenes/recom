@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Row, Col } from 'reactstrap';
 import { injectIntl } from 'react-intl';
 import { compose, withHandlers } from 'recompose';
 import classnames from 'classnames';

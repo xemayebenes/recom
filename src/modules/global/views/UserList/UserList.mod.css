@@ -1,9 +1,9 @@
 /* csslint ignore:start */
 
 .header {
-  background-color: var(--prussian-blue);
+  background-color: var(--ivory-black);
   color: white;
-  height: 100px;
+  min-height: 200px;
   border-bottom: solid 1px var(--gold-leaf);
   font-size: 2.5rem;
   font-weight: 1000;

@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { Row, Col } from 'reactstrap';
 import classnames from 'classnames';
 
 import { SearchBar } from 'modules/search/components/';
@@ -26,13 +25,6 @@ const Header = props => (
 
           <Notifications userId={authUser.userId} />
         </div>
-        {
-          // <div className={classnames('pt-1', styles.searchBarContainer)}>
-          //   <Col xs={{ size: 8, offset: 3 }}>
-          //     <SearchBar userId={authUser.userId} />
-          //   </Col>
-          // </div>
-        }
       </Fragment>
     )}
   </AuthContext.Consumer>

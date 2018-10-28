@@ -33,41 +33,6 @@ export class SearchItemModal extends PureComponent {
     });
   };
 
-  updateMovieList = async (cache, movie) => {
-    const data = cache.readQuery({
-      query: getUserMovies,
-      variables: {
-        userId: getUserId()
-      }
-    });
-    cache.writeQuery({
-      query: getUserMovies,
-      variables: {
-        userId: getUserId()
-      },
-      data: {
-        getUserMovies: [...data.getUserMovies, movie]
-      }
-    });
-  };
-  updateSerieList = async (cache, serie) => {
-    const data = cache.readQuery({
-      query: getUserSeries,
-      variables: {
-        userId: getUserId()
-      }
-    });
-    cache.writeQuery({
-      query: getUserSeries,
-      variables: {
-        userId: getUserId()
-      },
-      data: {
-        getUserSeries: [...data.getUserSeries, serie]
-      }
-    });
-  };
-
   handleSave = async _ => {
     if (this.props.itemType === MOVIE) {
       const result = await this.props.client.mutate({
@@ -77,11 +42,12 @@ export class SearchItemModal extends PureComponent {
           {
             query: getUserLastItems,
             variables: { userId: getUserId() }
+          },
+          {
+            query: getUserMovies,
+            variables: { userId: getUserId() }
           }
-        ],
-        update: (cache, { data: { addMovie } }) => {
-          this.updateMovieList(cache, addMovie);
-        }
+        ]
       });
       this.state.listSelected &&
         (await this.addToList(result.data.addMovie.id));
@@ -97,11 +63,12 @@ export class SearchItemModal extends PureComponent {
           {
             query: getUserLastItems,
             variables: { userId: getUserId() }
+          },
+          {
+            query: getUserSeries,
+            variables: { userId: getUserId() }
           }
-        ],
-        update: (cache, { data: { addSerie } }) => {
-          this.updateSerieList(cache, addSerie);
-        }
+        ]
       });
       this.state.listSelected &&
         (await this.addToList(result.data.addSerie.id));

@@ -1,8 +1,7 @@
-import React, { PureComponent, Fragment } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl } from 'react-intl';
-import { Query, compose } from 'react-apollo';
-import { Container } from 'reactstrap';
+import { compose } from 'recompose';
 import { withRouter } from 'react-router';
 
 import { MovieDetail, SerieDetail } from 'modules/items/components';

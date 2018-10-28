@@ -1,4 +1,4 @@
-import React, { PureComponent, Fragment } from 'react';
+import React from 'react';
 import { AuthContext } from 'modules/global/components';
 import { getUserId } from 'utils/security';
 

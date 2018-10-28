@@ -32,25 +32,12 @@ export class MovieDetail extends PureComponent {
     await this.props.client.mutate({
       mutation: removeMovie,
       variables: { id },
-      update: (cache, { data: { removeMovie } }) => {
-        const data = cache.readQuery({
+      refetchQueries: [
+        {
           query: getUserLastItems,
-          variables: {
-            userId: this.props.userId
-          }
-        });
-        cache.writeQuery({
-          query: getUserLastItems,
-          variables: {
-            userId: this.props.userId
-          },
-          data: {
-            getUserLastItems: data.getUserLastItems.filter(
-              li => li.item.id !== id
-            )
-          }
-        });
-      }
+          variables: { userId: this.props.userId }
+        }
+      ]
     });
 
     this.props.history.push('/');
@@ -59,25 +46,12 @@ export class MovieDetail extends PureComponent {
     await this.props.client.mutate({
       mutation: completeMovie,
       variables: { id },
-      update: (cache, { data: { completeMovie } }) => {
-        const data = cache.readQuery({
+      refetchQueries: [
+        {
           query: getUserLastItems,
-          variables: {
-            userId: this.props.userId
-          }
-        });
-        cache.writeQuery({
-          query: getUserLastItems,
-          variables: {
-            userId: this.props.userId
-          },
-          data: {
-            getUserLastItems: data.getUserLastItems.filter(
-              li => li.item.id !== id
-            )
-          }
-        });
-      }
+          variables: { userId: this.props.userId }
+        }
+      ]
     });
   };
   openShareModal = (externalId, title) => {

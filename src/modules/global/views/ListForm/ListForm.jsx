@@ -1,7 +1,7 @@
 import React, { PureComponent, Fragment } from 'react';
 import { injectIntl } from 'react-intl';
 import { withRouter } from 'react-router';
-import { ApolloConsumer, Mutation, withApollo } from 'react-apollo';
+import { Mutation, withApollo } from 'react-apollo';
 import classnames from 'classnames';
 
 import { compose } from 'recompose';
@@ -12,8 +12,6 @@ import {
   FormGroup,
   Button,
   Container,
-  Row,
-  Col,
   ButtonGroup
 } from 'reactstrap';
 

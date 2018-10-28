@@ -33,25 +33,12 @@ export class SerieDetail extends PureComponent {
     await this.props.client.mutate({
       mutation: removeSerie,
       variables: { id },
-      update: (cache, { data: { removeSerie } }) => {
-        const data = cache.readQuery({
+      refetchQueries: [
+        {
           query: getUserLastItems,
-          variables: {
-            userId: this.props.userId
-          }
-        });
-        cache.writeQuery({
-          query: getUserLastItems,
-          variables: {
-            userId: this.props.userId
-          },
-          data: {
-            getUserLastItems: data.getUserLastItems.filter(
-              li => li.item.id !== id
-            )
-          }
-        });
-      }
+          variables: { userId: this.props.userId }
+        }
+      ]
     });
 
     this.props.history.push('/');
@@ -61,25 +48,12 @@ export class SerieDetail extends PureComponent {
     await this.props.client.mutate({
       mutation: completeSerie,
       variables: { id },
-      update: (cache, { data: { completeSerie } }) => {
-        const data = cache.readQuery({
+      refetchQueries: [
+        {
           query: getUserLastItems,
-          variables: {
-            userId: this.props.userId
-          }
-        });
-        cache.writeQuery({
-          query: getUserLastItems,
-          variables: {
-            userId: this.props.userId
-          },
-          data: {
-            getUserLastItems: data.getUserLastItems.filter(
-              li => li.item.id !== id
-            )
-          }
-        });
-      }
+          variables: { userId: this.props.userId }
+        }
+      ]
     });
   };
 

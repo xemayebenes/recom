@@ -7,7 +7,8 @@ import { getMainDefinition } from 'apollo-utilities';
 import { split } from 'apollo-link';
 
 import { getAuthHeader, getToken } from 'utils/security';
-const baseApiUrl = process.env.REACT_APP_BASE_API_URL || '';
+const baseApiUrl =
+  process.env.REACT_APP_BASE_API_URL || 'glacial-crag-96922.herokuapp.com';
 
 const httpLink = createHttpLink({
   uri: `https://${baseApiUrl}/graphql?`

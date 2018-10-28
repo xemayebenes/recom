@@ -2,7 +2,7 @@ import React, { PureComponent, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl } from 'react-intl';
 import debounce from 'lodash.debounce';
-import { Input, TabContent, TabPane, Nav, NavItem, NavLink } from 'reactstrap';
+import { Input, TabContent, TabPane } from 'reactstrap';
 
 import classnames from 'classnames';
 import { compose, withApollo } from 'react-apollo';

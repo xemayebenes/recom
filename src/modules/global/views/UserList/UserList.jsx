@@ -98,9 +98,7 @@ export class Movies extends PureComponent {
                     </div>
                     <div className="text-uppercase">{data.list.name}</div>
                   </div>
-                </div>
-                <div className="m-3">
-                  <div className="d-flex justify-content-end mb-3">
+                  <div className="mr-2 mr-md-5 d-flex flex-column align-self-end">
                     <OpenShareModalButton
                       list={data.list}
                       onClick={this.openShareModal}
@@ -119,6 +117,8 @@ export class Movies extends PureComponent {
                       )}
                     </Mutation>
                   </div>
+                </div>
+                <div className="m-3">
                   <div className="text-justify">{data.list.description}</div>
                 </div>
                 <div className={styles.container}>
@@ -171,7 +171,7 @@ class OpenShareModalButton extends PureComponent {
       <Button
         size="sm"
         color="primary"
-        className="mr-1"
+        className="mb-1"
         onClick={this.handleClick}
       >
         <div className="d-flex align-items-baseline">
@@ -206,12 +206,7 @@ class DeleteListButton extends PureComponent {
 
   render() {
     return (
-      <Button
-        size="sm"
-        color="secondary"
-        className="float-right"
-        onClick={this.handleOnClick}
-      >
+      <Button size="sm" color="secondary" onClick={this.handleOnClick}>
         <div className="d-flex align-items-baseline">
           <div className="mr-3 fa-xs">
             <FontAwesomeIcon icon={faTrashAlt} />

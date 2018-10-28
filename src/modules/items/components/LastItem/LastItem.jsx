@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
 import { FormattedDate } from 'react-intl';
-import classnames from 'classnames';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import faFilm from '@fortawesome/fontawesome-free-solid/faFilm';
 import faTv from '@fortawesome/fontawesome-free-solid/faTv';

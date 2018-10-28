@@ -1,12 +1,10 @@
-import React, { PureComponent, Fragment } from 'react';
+import React, { PureComponent } from 'react';
 import { injectIntl } from 'react-intl';
 import { withRouter } from 'react-router';
 import { withApollo } from 'react-apollo';
 
 import { compose } from 'recompose';
-import { Button, Container, Row, Col } from 'reactstrap';
-
-import { MOVIE, SERIE } from 'modules/constants';
+import { Container } from 'reactstrap';
 
 import IMPORT_LIST from 'gql/lists/importList.gql';
 import getLists from 'gql/lists/getLists.gql';
