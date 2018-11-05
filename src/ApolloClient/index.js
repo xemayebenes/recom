@@ -7,15 +7,15 @@ import { getMainDefinition } from 'apollo-utilities';
 import { split } from 'apollo-link';
 
 import { getAuthHeader, getToken } from 'utils/security';
-const baseApiUrl =
-  process.env.REACT_APP_BASE_API_URL || 'glacial-crag-96922.herokuapp.com';
+const baseApiUrl = process.env.REACT_APP_BASE_API_URL;
+const baseWsUrl = process.env.REACT_APP_BASE_WS_URL;
 
 const httpLink = createHttpLink({
-  uri: `https://${baseApiUrl}/graphql?`
+  uri: `${baseApiUrl}graphql?`
 });
 
 const wsLink = new WebSocketLink({
-  uri: `wss://${baseApiUrl}/subscriptions`,
+  uri: `${baseWsUrl}graphql`,
   options: {
     reconnect: true,
     connectionParams: () => ({

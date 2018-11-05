@@ -1,6 +1,6 @@
 import decode from 'jwt-decode';
-const baseApiUrl =
-  process.env.REACT_APP_BASE_API_URL || 'glacial-crag-96922.herokuapp.com';
+const baseApiUrl = process.env.REACT_APP_BASE_API_URL;
+const baseWsUrl = process.env.REACT_APP_BASE_WS_URL;
 
 export const STORAGE_TOKEN_KEY = 'token';
 
@@ -34,7 +34,7 @@ export const isTokenExpired = token => {
 };
 
 export const login = params => {
-  return fetch(`https://${baseApiUrl}/token`, {
+  return fetch(`${baseApiUrl}token`, {
     method: 'POST',
     headers: {
       Accept: 'application/json',
@@ -59,7 +59,7 @@ export const checkResponse = async response => {
 };
 
 export const register = params => {
-  return fetch(`https://${baseApiUrl}/register`, {
+  return fetch(`${baseApiUrl}register`, {
     method: 'POST',
     headers: {
       Accept: 'application/json',
