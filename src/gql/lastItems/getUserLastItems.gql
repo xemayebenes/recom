@@ -11,6 +11,10 @@ query getUserLastItems($userId: String!) {
           main
           secondary
         }
+        small {
+          main
+          secondary
+        }
       }
     }
   }

@@ -13,6 +13,9 @@ query getList($userId: String!, $listId: String!) {
         medium {
           main
         }
+        small {
+          main
+        }
       }
     }
   }

@@ -156,8 +156,10 @@ export class ListForm extends PureComponent {
               </div>
             </FormGroup>
             {this.state.items && (
-              <Fragment>
-                <div className={styles.list}>
+              <div className="d-flex flex-column align-items-end">
+                <div
+                  className={classnames(styles.list, 'order-2', 'order-md-1')}
+                >
                   <ContainerScrollHorizontal>
                     {this.state.items &&
                       this.state.items.map(item => (
@@ -180,7 +182,7 @@ export class ListForm extends PureComponent {
                   onCompleted={this.handleOnCompleteCreate}
                 >
                   {(createList, { loading, error }) => (
-                    <div className="float-right mt-2">
+                    <div className="float-right mt-2 order-1 order-md-2 mb-2 mb-md-0">
                       <CreateListButton
                         onClick={createList}
                         name={this.state.name}
@@ -195,7 +197,7 @@ export class ListForm extends PureComponent {
                     </div>
                   )}
                 </Mutation>
-              </Fragment>
+              </div>
             )}
           </Form>
         </Container>
@@ -241,17 +243,44 @@ class ListFormItem extends PureComponent {
   render() {
     const { selected, images, title } = this.props;
     return (
-      <div
-        className={classnames(styles.card, {
-          [styles.shadow]: selected
-        })}
-        onClick={this.handleClick}
-      >
-        <img src={images.medium.main} alt="main" className={styles.image} />
-        <div className={styles.cardBottom}>
-          <div className="text-right mr-2">{title}</div>
+      <Fragment>
+        <div
+          onClick={this.handleClick}
+          className={classnames(
+            {
+              [styles.shadow]: selected
+            },
+            'd-flex',
+            'd-md-none',
+            'align-items-center',
+            'justify-content-start',
+            styles.miniCard
+          )}
+        >
+          <div>
+            <img src={images.small.main} alt={'main'} />
+          </div>
+          <div className="d-flex align-items-baseline fa-2x ml-2">
+            <div>{title}</div>
+          </div>
         </div>
-      </div>
+        <div
+          className={classnames(
+            styles.card,
+            {
+              [styles.shadow]: selected
+            },
+            'd-none',
+            'd-md-block'
+          )}
+          onClick={this.handleClick}
+        >
+          <img src={images.medium.main} alt="main" className={styles.image} />
+          <div className={styles.cardBottom}>
+            <div className="text-right mr-2">{title}</div>
+          </div>
+        </div>
+      </Fragment>
     );
   }
 }

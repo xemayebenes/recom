@@ -29,3 +29,9 @@
     min-height: 750px;
   }
 }
+.miniCard {
+  margin: 2px;
+  background-color: var(--ivory-black);
+  color: white;
+  border: 2px solid var(--gold-leaf);
+}

@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 import { compose, withHandlers } from 'recompose';
-
+import classnames from 'classnames';
 import { imageShape } from 'modules/global/proptypes';
 import { ContainerScrollHorizontal } from 'modules/global/components';
 
@@ -14,25 +14,56 @@ const UserListItem = ({
   handleOnClickItemDetail,
   list
 }) => (
-  <div className={styles.list} key={list.id} onClick={handleOnClickItem}>
-    <div className="text-left pl-5 bg-light">{list.name}</div>
+  <Fragment key={list.id}>
+    <div
+      onClick={handleOnClickItem}
+      className={classnames(
+        'd-flex',
+        'flex-column',
+        'd-md-none',
+        'justify-content-start',
+        styles.miniCard
+      )}
+    >
+      <div className="d-flex align-items-baseline fa-2x ml-2">
+        <div>{list.name}</div>
+      </div>
+      <div>
+        {list.items
+          .slice(0, 5)
+          .map(item => (
+            <img
+              src={item.images.small.main}
+              alt="main"
+              key={item.id}
+              onClick={this.handleOnClickItemDetail}
+            />
+          ))}
+      </div>
+    </div>
+    <div
+      className={classnames(styles.list, 'd-none', 'd-md-flex')}
+      onClick={handleOnClickItem}
+    >
+      <div className="text-left pl-5 bg-light">{list.name}</div>
 
-    <ContainerScrollHorizontal>
-      {list.items.map(item => (
-        <div className={styles.card} key={item.id}>
-          <img
-            src={item.images.medium.main}
-            className={styles.image}
-            alt="main"
-            onClick={this.handleOnClickItemDetail}
-          />
-          <div className={styles.cardBottom}>
-            <div className="text-right mr-2">{item.title}</div>
+      <ContainerScrollHorizontal>
+        {list.items.map(item => (
+          <div className={styles.card} key={item.id}>
+            <img
+              src={item.images.medium.main}
+              className={styles.image}
+              alt="main"
+              onClick={this.handleOnClickItemDetail}
+            />
+            <div className={styles.cardBottom}>
+              <div className="text-right mr-2">{item.title}</div>
+            </div>
           </div>
-        </div>
-      ))}
-    </ContainerScrollHorizontal>
-  </div>
+        ))}
+      </ContainerScrollHorizontal>
+    </div>
+  </Fragment>
 );
 
 UserListItem.displayName = 'UserListItem';

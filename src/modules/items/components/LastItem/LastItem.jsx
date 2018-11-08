@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
 import { FormattedDate } from 'react-intl';
+import classnames from 'classnames';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import faFilm from '@fortawesome/fontawesome-free-solid/faFilm';
 import faTv from '@fortawesome/fontawesome-free-solid/faTv';
@@ -34,25 +35,56 @@ export class LastItem extends React.PureComponent {
   render() {
     const { type, item, date } = this.props;
     return (
-      <div onClick={this.goToItemDetail} className={styles.card}>
-        <img
-          src={item.images.medium.main}
-          alt="main"
-          className={styles.image}
-        />
-        <div className={styles.cardBottom}>
-          <div className="ml-2">{item.title}</div>
-          <div className="d-flex justify-content-end">
-            <div className="mr-2">
+      <Fragment>
+        <div
+          onClick={this.goToItemDetail}
+          className={classnames(styles.card, 'd-none', 'd-md-flex')}
+        >
+          <img
+            src={item.images.medium.main}
+            alt="main"
+            className={styles.image}
+          />
+          <div className={styles.cardBottom}>
+            <div className="ml-2">{item.title}</div>
+            <div className="d-flex justify-content-end">
+              <div className="mr-2">
+                {type === 'Movie' && <FontAwesomeIcon icon={faFilm} />}
+                {type === 'Serie' && <FontAwesomeIcon icon={faTv} />}
+              </div>
+              <div className="mr-2">
+                <FormattedDate value={new Date(date)} />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          onClick={this.goToItemDetail}
+          className={classnames(
+            'd-flex',
+            'd-md-none',
+            'align-items-center',
+            'justify-content-start',
+            styles.miniCard
+          )}
+        >
+          <div>
+            <img src={item.images.small.main} alt={item.title} />
+          </div>
+          <div className="d-flex align-items-baseline fa-2x ml-2">
+            <div>{item.title}</div>
+          </div>
+          <div className="d-flex flex-column align-self-end align-items-end flex-grow-1 mr-2">
+            <div>
               {type === 'Movie' && <FontAwesomeIcon icon={faFilm} />}
               {type === 'Serie' && <FontAwesomeIcon icon={faTv} />}
             </div>
-            <div className="mr-2">
+            <div>
               <FormattedDate value={new Date(date)} />
             </div>
           </div>
         </div>
-      </div>
+      </Fragment>
     );
   }
 }
